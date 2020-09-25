@@ -1,0 +1,11 @@
+.vs/
+*/bin/
+*/obj/
+*.json
+*.sln
+*.csproj
+
+LocationIqClient.cs
+WeatherAPI/Program.cs
+WeatherAPI/Startup.cs
+WeatherAPI/WeatherAPI.csproj.user
