@@ -1,0 +1,3 @@
+[submodule "Credentials"]
+	path = Credentials
+	url = git@github.com:a-helix/Credentials.git
