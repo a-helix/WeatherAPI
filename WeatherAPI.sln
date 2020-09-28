@@ -10,11 +10,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherAPI", "WeatherAPI\We
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiClients", "ApiClients\ApiClients.csproj", "{9E045363-DFD2-4EB7-9354-78D817CA0A59}"
+	ProjectSection(ProjectDependencies) = postProject
+		{36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0} = {36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Credentials", "Credentials\Credentials.csproj", "{36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9E045363-DFD2-4EB7-9354-78D817CA0A59} = {9E045363-DFD2-4EB7-9354-78D817CA0A59}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

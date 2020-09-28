@@ -16,8 +16,8 @@ namespace ApiClients
 		{
 			client = new HttpClient();
 			JsonFileContent config = new JsonFileContent("ApiClientKey.json");
-			apiPath = "api.openweathermap.org/data/2.5/weather?";
-			apiKey = (string) config.selectedParameter("LocationIq");
+			apiPath = (string) config.selectedParameter("LocationIqUrl");
+			apiKey = (string) config.selectedParameter("LocationIqKey");
 		}
 
 		public async Task<string> apiRequest(string input)
@@ -25,9 +25,10 @@ namespace ApiClients
 			string location = input.Trim().Replace(" ", "%20");
 			string request = string.Format("{0}key={1}&format=json&{2}", apiPath, apiKey, location);
 			string response = await client.GetStringAsync(request);
-			var responseJson = new JsonStringContent(response);
-			string result = String.Join((string) responseJson.selectedParameter("lat"),
-										(string) responseJson.selectedParameter("lon"),
+			var responseJson = new JsonStringContent(response).ToString();
+			var content = new JsonStringContent(responseJson);
+			string result = String.Join((string) content.selectedParameter("lat"),
+										(string) content.selectedParameter("lon"),
 										";");
 			return result;
 		}

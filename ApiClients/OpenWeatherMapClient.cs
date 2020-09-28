@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ApiClients
 {
-	 public class OpenWeatherMapClient
+	public class OpenWeatherMapClient
 	{
 		string apiPath;
 		string apiKey;
@@ -15,8 +15,19 @@ namespace ApiClients
 		{
 			client = new HttpClient();
 			JsonFileContent config = new JsonFileContent("ApiClientKey.json");
-			apiPath = "https://us1.locationiq.com/v1/search.php?";
-			apiKey = (string)config.selectedParameter("OpenWeatherMap");
+			apiPath = (string)config.selectedParameter("OpenWeatherMapUrl");
+			apiKey = (string)config.selectedParameter("OpenWeatherMapKey");
+		}
+
+		public async Task<String> apiRequest(string input)
+		{
+			string[] parameters = input.Split(";");
+			string latitude = parameters[0];
+			string longitue = parameters[1];
+			string request = string.Format("{0}lat={1}&lon={2}&appid={3}", apiPath, latitude, longitue, apiKey);
+			string response = await client.GetStringAsync(request);
+			var responseJson = new JsonStringContent(response).ToString();
+			return responseJson;
 		}
 	}
 }

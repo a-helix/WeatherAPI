@@ -4,4 +4,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Configs\ApiClientKeys.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Configs\ApiClientKeys.json" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,59 @@
+﻿[
+  {
+    "place_id": "91421092",
+    "licence": "https://locationiq.com/attribution",
+    "osm_type": "way",
+    "osm_id": "34633854",
+    "boundingbox": [
+      "40.7479226",
+      "40.7489422",
+      "-73.9864855",
+      "-73.9848259"
+    ],
+    "lat": "40.7484284",
+    "lon": "-73.9856546198733",
+    "display_name": "Empire State Building, 350, 5th Avenue, Korea Town, Manhattan, New York, New York County, New York, 10001, USA",
+    "class": "tourism",
+    "type": "attraction",
+    "importance": 0.85158684668746,
+    "icon": "https://locationiq.org/static/images/mapicons/poi_point_of_interest.p.20.png"
+  },
+  {
+    "place_id": "26790631",
+    "licence": "https://locationiq.com/attribution",
+    "osm_type": "node",
+    "osm_id": "2709306673",
+    "boundingbox": [
+      "40.7481128",
+      "40.7482128",
+      "-73.9850458",
+      "-73.9849458"
+    ],
+    "lat": "40.7481628",
+    "lon": "-73.9849958",
+    "display_name": "Empire State Building, 350, 5th Avenue, Korea Town, Manhattan, New York, New York County, New York, 10001, USA",
+    "class": "tourism",
+    "type": "attraction",
+    "importance": 0.301,
+    "icon": "https://locationiq.org/static/images/mapicons/poi_point_of_interest.p.20.png"
+  },
+  {
+    "place_id": "65760864",
+    "licence": "https://locationiq.com/attribution",
+    "osm_type": "node",
+    "osm_id": "5552887205",
+    "boundingbox": [
+      "52.2956835",
+      "52.2957835",
+      "16.7553074",
+      "16.7554074"
+    ],
+    "lat": "52.2957335",
+    "lon": "16.7553574",
+    "display_name": "Empire State Building, Poznańska, Łódź-Leśniczówka, Trzebaw, gmina Stęszew, Poznań County, Greater Poland Voivodeship, 62-060, Poland",
+    "class": "tourism",
+    "type": "artwork",
+    "importance": 0.301,
+    "icon": "https://locationiq.org/static/images/mapicons/tourist_art_gallery2.p.20.png"
+  }
+]
