@@ -36,7 +36,7 @@ namespace WeatherAPI
             }
 
             app.UseRouting();
-
+            app.UseHttpsRedirection();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/", async context =>
