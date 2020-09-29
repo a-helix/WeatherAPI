@@ -4,17 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherAPI", "WeatherAPI\WeatherAPI.csproj", "{3612C932-2EF0-4DB9-868B-BE0053625B7C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9E045363-DFD2-4EB7-9354-78D817CA0A59} = {9E045363-DFD2-4EB7-9354-78D817CA0A59}
-		{36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0} = {36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiClients", "ApiClients\ApiClients.csproj", "{9E045363-DFD2-4EB7-9354-78D817CA0A59}"
 	ProjectSection(ProjectDependencies) = postProject
+		{ECE16F02-DAA9-4845-B6D3-3929268C6946} = {ECE16F02-DAA9-4845-B6D3-3929268C6946}
+		{3612C932-2EF0-4DB9-868B-BE0053625B7C} = {3612C932-2EF0-4DB9-868B-BE0053625B7C}
 		{36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0} = {36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Credentials", "Credentials\Credentials.csproj", "{36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitChat", "..\RabbitChat\RabbitChat\RabbitChat.csproj", "{ECE16F02-DAA9-4845-B6D3-3929268C6946}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +34,10 @@ Global
 		{36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECE16F02-DAA9-4845-B6D3-3929268C6946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE16F02-DAA9-4845-B6D3-3929268C6946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE16F02-DAA9-4845-B6D3-3929268C6946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE16F02-DAA9-4845-B6D3-3929268C6946}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

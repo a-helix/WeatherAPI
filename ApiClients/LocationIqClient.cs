@@ -2,6 +2,7 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using RabbitChat;
 
 
 namespace ApiClients
@@ -20,9 +21,10 @@ namespace ApiClients
 			apiKey = (string) config.selectedParameter("LocationIqKey");
 		}
 
-		public async Task<string> apiRequest(string input)
+		public async void apiRequest(string input)
 		{
 			string location = input.Trim().Replace(" ", "%20");
+			// Check DB first
 			string request = string.Format("{0}key={1}&format=json&{2}", apiPath, apiKey, location);
 			string response = await client.GetStringAsync(request);
 			var responseJson = new JsonStringContent(response).ToString();
@@ -30,7 +32,8 @@ namespace ApiClients
 			string result = String.Join((string) content.selectedParameter("lat"),
 										(string) content.selectedParameter("lon"),
 										";");
-			return result;
+			Publisher publisher = new Publisher("localhost", "LocationIqClient", "LocationIqClient");
+			publisher.send(input, result);
 		}
 	}
 }
