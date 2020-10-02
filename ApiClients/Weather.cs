@@ -2,13 +2,13 @@
 {
     public class Weather
     {
-        private string latitude { get; }
-        private string longitude { get; }
-        private string temperature { get; }
-        private string humidity { get; }
-        private string pressure { get; }
-        private string timezone { get; }
-        private string weather { get; }
+        public string latitude;
+        public string longitude;
+        public string temperature;
+        public string humidity;
+        public string pressure;
+        public string timezone;
+        public string weather;
 
         public Weather(string latitude, string longitude, string temperature, string humidity, string pressure, string timezone, string weather)
         {

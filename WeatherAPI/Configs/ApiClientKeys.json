@@ -1,6 +1,6 @@
 ﻿{
-  "LocationIqkey": "429335d1f4e352",
-  "LocationIqUrl": "api.openweathermap.org/data/2.5/weather?",
+  "OpenWeatherMapUrl": "https://api.openweathermap.org",
   "OpenWeatherMapKey": "b3f90dea99fa200df3df682251c8629a",
-  "OpenWeatherMapUrl": "https://us1.locationiq.com/v1/search.php?"
+  "LocationIqUrl": "https://us1.locationiq.com",
+  "LocationIqKey": "429335d1f4e352"
 }
