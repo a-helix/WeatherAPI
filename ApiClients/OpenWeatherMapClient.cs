@@ -29,28 +29,29 @@ namespace ApiClients
         {
             // Throws WebException if no internet.
             validInternetConnection();
-            // Throws ArgumentException if coordinates are invalid.
+            // Throws ArgumentException if coordinates are unrealistic.
             validCoordinates(geolocation);
             //Generates an HTTP request.
             var request = new RestRequest(_url, Method.GET);
             string[] coordinates = geolocation.Split(";");
-            double longitude = double.Parse(coordinates[0]);
-            double latitude = double.Parse(coordinates[1]);
+            double latitude = double.Parse(coordinates[0]);
+            double longitude = double.Parse(coordinates[1]);
             request.AddParameter("lat", latitude);
             request.AddParameter("lon", longitude);
             request.AddParameter("appid", _key);
             var response = _client.Execute(request);
+            
+
             var content = response.Content;
-            //
-            JObject json = new JObject(response);
+            JObject json = JObject.Parse(content); 
             Weather weather = new Weather(
-                (string) json["lat"],
-                (string) json["lat"],
-                (string) json["current"]["temp"],
-                (string) json["current"]["humidity"],
-                (string) json["current"]["pressure"],
+                (string) json["coord"]["lat"],
+                (string) json["coord"]["lon"],
+                (string) json["main"]["temp"],
+                (string) json["main"]["humidity"],
+                (string) json["main"]["pressure"],
                 (string) json["timezone"],
-                (string) json["current"]["weather"]["main"]
+                (string) json["weather"][0]["main"]
                 );
             return weather;
         }

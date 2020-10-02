@@ -18,7 +18,7 @@
             this.humidity = humidity;
             this.pressure = pressure;
             this.timezone = timezone;
-            this.timezone = weather;
+            this.weather = weather;
         }
     }
 }
