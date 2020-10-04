@@ -14,4 +14,10 @@
     <ProjectReference Include="..\ApiClients\ApiClients.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Configs\nlog.config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,4 @@
 ﻿using NUnit.Framework;
-using Credentials;
-using RabbitChat;
 using System;
 
 namespace ApiClients.Tests
@@ -15,10 +13,10 @@ namespace ApiClients.Tests
             var longitude = "-73.99";
             var timezone = "-14400";
             var coordinates = String.Join(";", latitude, longitude);
-            Weather feedback = client.apiRequest(coordinates);
-            Assert.AreEqual(latitude, feedback.latitude);
-            Assert.AreEqual(longitude, feedback.longitude);
-            Assert.AreEqual(timezone, feedback.timezone);
+            ApiResponse feedback = client.apiRequest(coordinates);
+            Assert.AreEqual(latitude, feedback.value("latitude"));
+            Assert.AreEqual(longitude, feedback.value("longitude"));
+            Assert.AreEqual(timezone, feedback.value("timezone"));
         }
 
         [Test]

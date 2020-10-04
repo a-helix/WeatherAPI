@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +15,9 @@ namespace WeatherAPI
     {
         public static void Main(string[] args)
         {
-            var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+        string configPath = Path.Join("Configs", "nlog.config.xml");
+        var logger = NLog.Web.NLogBuilder.ConfigureNLog(configPath).GetCurrentClassLogger();
+
             try
             {
                 logger.Debug("init main");
@@ -24,7 +27,6 @@ namespace WeatherAPI
             {
                 //NLog: catch setup errors
                 logger.Error(exception, "Stopped program because of exception");
-                throw;
             }
             finally
             {

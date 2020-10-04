@@ -1,13 +1,14 @@
-﻿using System;
-using Credentials;
+﻿using Credentials;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Net;
 using System.IO;
+using System.Collections.Generic;
+using System;
 
 namespace ApiClients
 {
-    public class LocationIqClient
+    public class LocationIqClient : IApiClient
     {
         private RestClient _client;
         private string _key;
@@ -19,47 +20,36 @@ namespace ApiClients
         {
             JsonFileContent config = new JsonFileContent(_configPath);
             _client = new RestClient((string)config.selectedParameter("LocationIqUrl"));
-            _key = (string)config.selectedParameter("LocationIqKey");
-            _url = string.Format("/v1/search.php?");
+            _key = (string) config.selectedParameter("LocationIqKey");
+            _url = "/v1/search.php?";
         }
 
-        public string apiRequest(string input)
+        public ApiResponse apiRequest(string place)
         {
             // TODO: Check input in DB first
-            // Throws WebException if no internet.
-            validInternetConnection();
-            //Generates an HTTP request.
             var request = new RestRequest(_url, Method.GET);
-            string location = input.Trim();
+            string location = place.Trim();
             request.AddParameter("format", "json");
             request.AddParameter("q", location);
             request.AddParameter("key", _key);
             var response = _client.Execute(request);
             var content = response.Content;
-            //
             if (locationNotExhist(content))
-                return null;
+                throw new ArgumentException($"Unknown location {place}.");
             // Extracts coordinates.
             var contentArray = JArray.Parse(content);
             var coordinates = contentArray[0].ToString();
-            var data = new JsonStringContent(coordinates);
-            var lat = data.selectedParameter("lat").ToString();
-            var lon = data.selectedParameter("lon").ToString();
-            var result = String.Join(";", lat, lon);
-            return result;
-        }
-
-        private void validInternetConnection()
-        {
-            WebClient web = new WebClient();
-            try
+            var data = JObject.Parse(coordinates);
+            var lat = (string) data["lat"];
+            var lon = (string) data["lon"];
+            var geolocation = string.Join(";", lat, lon);
+            var result = new Dictionary<string, string>()
             {
-                web.DownloadData("http://www.google.com");
-            }
-            catch (WebException)
-            {
-                throw new WebException("Internet is not available.");
-            }
+                {"latitude",  lat },
+                {"longitude", lon },
+                {"geolocation", geolocation }
+            };
+            return new ApiResponse(result);
         }
 
         private bool locationNotExhist(string response)

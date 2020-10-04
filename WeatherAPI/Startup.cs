@@ -43,6 +43,16 @@ namespace WeatherAPI
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
+
+                endpoints.MapGet("/coordinates/weather/{location}", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
+
+                endpoints.MapGet("/place/weather/{place}", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
             });
         }
     }

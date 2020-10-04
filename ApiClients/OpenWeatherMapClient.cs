@@ -10,14 +10,14 @@ using System.Linq;
 
 namespace ApiClients
 {
-    public class OpenWeatherMapClient
+    public class OpenWeatherMapClient : IApiClient
     {
         private RestClient _client;
         private string _key;
         private string _url = "/data/2.5/weather?";
         private static string _projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
         private static string _configPath = Path.Join(_projectPath, "WeatherAPI", "Configs", "ApiClientKeys.json");
-        
+
         public OpenWeatherMapClient()
         {
             JsonFileContent config = new JsonFileContent(_configPath);
@@ -25,10 +25,8 @@ namespace ApiClients
             _key = (string) config.selectedParameter("OpenWeatherMapKey"); 
         }
 
-        public Weather apiRequest(string geolocation)
+        public ApiResponse apiRequest(string geolocation)
         {
-            // Throws WebException if no internet.
-            validInternetConnection();
             // Throws ArgumentException if coordinates are unrealistic.
             validCoordinates(geolocation);
             //Generates an HTTP request.
@@ -40,33 +38,22 @@ namespace ApiClients
             request.AddParameter("lon", longitude);
             request.AddParameter("appid", _key);
             var response = _client.Execute(request);
-            
+
 
             var content = response.Content;
-            JObject json = JObject.Parse(content); 
-            Weather weather = new Weather(
-                (string) json["coord"]["lat"],
-                (string) json["coord"]["lon"],
-                (string) json["main"]["temp"],
-                (string) json["main"]["humidity"],
-                (string) json["main"]["pressure"],
-                (string) json["timezone"],
-                (string) json["weather"][0]["main"]
-                );
-            return weather;
-        }
-
-        private void validInternetConnection()
-        {
-            WebClient web = new WebClient();
-            try
+            JObject json = JObject.Parse(content);
+            Dictionary<string, string> weather = new Dictionary<string, string>()
             {
-                web.DownloadData("http://www.google.com");
-            }
-            catch (WebException)
-            {
-                throw new WebException("Internet is not available.");
-            }
+                {"latitude",  (string)json["coord"]["lat"]},
+                {"longitude", (string) json["coord"]["lon"]},
+                {"geolocation", string.Join(";", (string)json["coord"]["lat"], (string) json["coord"]["lon"])},
+                {"temperature", (string) json["main"]["temp"]},
+                {"humidity", (string) json["main"]["humidity"]},
+                {"pressure", (string) json["main"]["pressure"]},
+                {"timezone", (string) json["timezone"]},
+                {"weather", (string) json["weather"][0]["main"]}
+            };
+            return new ApiResponse(weather);
         }
 
         private void validCoordinates(string geolocation)
