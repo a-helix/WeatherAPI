@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -17,42 +14,30 @@ namespace WeatherAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSwaggerGen();
+            services.AddMvcCore().AddApiExplorer();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwagger();
-            // specify later
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-                c.RoutePrefix = string.Empty;
             });
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            var option = new RewriteOptions();
+            app.UseDefaultFiles();
+            option.AddRedirect("^swagger", "/swagger/index.html");
+            app.UseRewriter(option);
             app.UseRouting();
-            app.UseHttpsRedirection();
-            app.UseEndpoints(endpoints =>
+            app.Run(async (context) =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-
-                endpoints.MapGet("/coordinates/weather/{location}", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-
-                endpoints.MapGet("/place/weather/{place}", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                await context.Response.WriteAsync("Hello World");
             });
         }
     }

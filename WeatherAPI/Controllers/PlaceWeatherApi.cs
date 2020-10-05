@@ -9,14 +9,16 @@ namespace WeatherAPI
 {
 
     [ApiController]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(400)]
-    [Route("/place/weather/{place}")]
+    
     public class PlaceWeatherApi : ControllerBase
     {
         ApiRequestTerminal terminal = new ApiRequestTerminal();
 
-        public ActionResult<string> Post(string place)
+        [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [Route("/place/weather/{place}")]
+        public ActionResult<string> getWeather([FromRoute]string place)
         {
             try
             {

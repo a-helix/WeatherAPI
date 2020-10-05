@@ -8,15 +8,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WeatherAPI
 {
-    [ApiController]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(400)]
-    [Route("/coordinates/weather/{location}")]
+    
     public class GeolocationWeatherApi : ControllerBase
     {
         ApiRequestTerminal terminal = new ApiRequestTerminal();
 
-        public ActionResult<string> Post(string location)
+        [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [Route("/coordinates/weather/{location}")]
+        public ActionResult<string> getLocation(string location)
         {
             try
             {
