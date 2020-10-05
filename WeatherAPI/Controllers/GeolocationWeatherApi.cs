@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace WeatherAPI
 {
     
@@ -16,12 +17,12 @@ namespace WeatherAPI
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        [Route("/coordinates/weather/{location}")]
-        public ActionResult<string> getLocation(string location)
+        [Route("/weather/coordinates/{coordinates}")]
+        public ActionResult<string> getCoordinates(string coordinates)
         {
             try
             {
-                ApiResponse response = terminal.execute("coordinates", location);
+                ApiResponse response = terminal.execute("coordinates", coordinates);
                 return Ok(response.json());
             }
             catch (Exception e)

@@ -13,8 +13,8 @@ namespace ApiClients
         private RestClient _client;
         private string _key;
         private string _url;
-        private static string _projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
-        private static string _configPath = Path.Join(_projectPath, "WeatherAPI", "Configs", "ApiClientKeys.json");
+        private static string _projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+        private static string _configPath = Path.Join(_projectPath, "WeatherAPI", "WeatherAPI", "Configs", "ApiClientKeys.json");
 
         public LocationIqClient()
         {
@@ -49,6 +49,7 @@ namespace ApiClients
                 {"longitude", lon },
                 {"geolocation", geolocation }
             };
+            //TODO: Add new place to DB.
             return new ApiResponse(result);
         }
 
