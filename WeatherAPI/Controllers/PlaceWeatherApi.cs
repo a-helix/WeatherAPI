@@ -17,8 +17,8 @@ namespace WeatherAPI
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        [Route("/place/weather/{place}")]
-        public ActionResult<string> getWeather([FromRoute]string place)
+        [Route("/place/weather")]
+        public ActionResult<string> getWeather(string place)
         {
             try
             {

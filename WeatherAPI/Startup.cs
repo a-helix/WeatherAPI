@@ -15,6 +15,7 @@ namespace WeatherAPI
         {
             services.AddSwaggerGen();
             services.AddMvcCore().AddApiExplorer();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,9 +36,9 @@ namespace WeatherAPI
             option.AddRedirect("^swagger", "/swagger/index.html");
             app.UseRewriter(option);
             app.UseRouting();
-            app.Run(async (context) =>
+            app.UseEndpoints(endpoints =>
             {
-                await context.Response.WriteAsync("Hello World");
+                endpoints.MapControllers();
             });
         }
     }
