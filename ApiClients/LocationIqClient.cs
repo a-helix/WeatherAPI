@@ -5,6 +5,7 @@ using System.Net;
 using System.IO;
 using System.Collections.Generic;
 using System;
+using System.Reflection;
 
 namespace ApiClients
 {
@@ -13,8 +14,9 @@ namespace ApiClients
         private RestClient _client;
         private string _key;
         private string _url;
-        private static string _projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-        private static string _configPath = Path.Join(_projectPath, "WeatherAPI", "WeatherAPI", "Configs", "ApiClientKeys.json");
+        private string _configPath = Path.Combine(
+            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+            "Configs", "ApiClientKeys.json");
 
         public LocationIqClient()
         {

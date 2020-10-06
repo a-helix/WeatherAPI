@@ -7,6 +7,7 @@ using RestSharp;
 using System.Net;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace ApiClients
 {
@@ -15,10 +16,11 @@ namespace ApiClients
         private RestClient _client;
         private string _key;
         private string _url = "/data/2.5/weather?";
-        private static string _projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-        private static string _configPath = Path.Join(_projectPath, "WeatherAPI", "WeatherAPI", "Configs", "ApiClientKeys.json");
+        //private static string _configPath = Path.Combine(
+        //    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), 
+        //    "Configs", "ApiClientKeys.json");
 
-        public OpenWeatherMapClient()
+        public OpenWeatherMapClient(string configPath)
         {
             JsonFileContent config = new JsonFileContent(_configPath);
             _client = new RestClient((string)config.selectedParameter("OpenWeatherMapUrl"));
