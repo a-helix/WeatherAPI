@@ -35,17 +35,21 @@ namespace ApiClients
             // Extracts coordinates.
             var contentArray = JArray.Parse(content);
             var coordinates = contentArray[0].ToString();
-            var data = JObject.Parse(coordinates);
-            var lat = (string) data["lat"];
-            var lon = (string) data["lon"];
+            var areaDescription = contentArray[1].ToString();
+            var coordinatesData = JObject.Parse(coordinates);
+            var areaDescriptionData = JObject.Parse(areaDescription);
+            var lat = (string) coordinatesData["lat"];
+            var lon = (string) coordinatesData["lon"];
             var geolocation = string.Join(";", lat, lon);
+            var area = (string) areaDescriptionData["display_name"];
+            var areaSplit = area.Split(",");
             var result = new Dictionary<string, string>()
             {
                 {"latitude",  lat },
                 {"longitude", lon },
-                {"geolocation", geolocation }
+                {"geolocation", geolocation },
+                {"area", string.Join(":", areaSplit[areaSplit.Length-3].Trim(), areaSplit[areaSplit.Length-1].Trim())  }
             };
-            //TODO: Add new place to DB.
             return new ApiResponse(result);
         }
 

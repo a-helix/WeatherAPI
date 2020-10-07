@@ -20,6 +20,7 @@ namespace ApiClients
                 case "coordinates":
                     return _openWeatherMapClient.apiRequest(location);
                 case "location":
+                    // Use the name of a city like "New York", or city and country like "New York:USA"
                     string geolocation = _locationIqClient.apiRequest(location).value("geolocation");
                     return _openWeatherMapClient.apiRequest(geolocation);
                 default:

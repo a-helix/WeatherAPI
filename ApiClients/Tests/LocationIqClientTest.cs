@@ -21,6 +21,7 @@ namespace ApiClients.Tests
             var response = client.apiRequest(request);
             var compare = new JsonStringContent(response.json());
             Assert.AreEqual(compare.selectedParameter("geolocation"), test);
+            Assert.AreEqual(compare.selectedParameter("area"), "New York:USA");
         }
 
         [Test]

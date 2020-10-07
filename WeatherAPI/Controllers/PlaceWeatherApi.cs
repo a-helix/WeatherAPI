@@ -7,6 +7,7 @@ using RestSharp.Extensions;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Reflection;
+using Credentials;
 
 namespace WeatherAPI
 {
@@ -15,11 +16,18 @@ namespace WeatherAPI
     
     public class PlaceWeatherApi : ControllerBase
     {
-        static string configPath = Path.Combine(
+        //api configurations
+        static string apiConfigPath = Path.Combine(
                                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                                    "Configs", "ApiClientKeys.json");
-        ApiRequestTerminal terminal = new ApiRequestTerminal(configPath);
+        ApiRequestTerminal terminal = new ApiRequestTerminal(apiConfigPath);
         private ILogger<PlaceWeatherApi> _logger;
+        //request counting configurations
+        static JsonFileContent locationIqRules = new JsonFileContent(Path.Combine(
+                                   Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                   "Configs", "LocationIqRules.json"));
+        int requestsLeft = (int) locationIqRules.selectedParameter("RequestsPerDay");
+        int requestsPerSecond = (int) locationIqRules.selectedParameter("RequestsPerSecond");
 
         public PlaceWeatherApi(ILogger<PlaceWeatherApi> logger)
         {
