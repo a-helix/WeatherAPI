@@ -1,11 +1,8 @@
 ﻿using Credentials;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using System.Net;
-using System.IO;
 using System.Collections.Generic;
 using System;
-using System.Reflection;
 
 namespace ApiClients
 {
@@ -14,13 +11,10 @@ namespace ApiClients
         private RestClient _client;
         private string _key;
         private string _url;
-        private string _configPath = Path.Combine(
-            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-            "Configs", "ApiClientKeys.json");
 
-        public LocationIqClient()
+        public LocationIqClient(string configPath)
         {
-            JsonFileContent config = new JsonFileContent(_configPath);
+            JsonFileContent config = new JsonFileContent(configPath);
             _client = new RestClient((string)config.selectedParameter("LocationIqUrl"));
             _key = (string) config.selectedParameter("LocationIqKey");
             _url = "/v1/search.php?";

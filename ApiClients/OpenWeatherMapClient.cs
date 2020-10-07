@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Credentials;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using System.Net;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 
 namespace ApiClients
 {
@@ -22,7 +17,7 @@ namespace ApiClients
 
         public OpenWeatherMapClient(string configPath)
         {
-            JsonFileContent config = new JsonFileContent(_configPath);
+            JsonFileContent config = new JsonFileContent(configPath);
             _client = new RestClient((string)config.selectedParameter("OpenWeatherMapUrl"));
             _key = (string) config.selectedParameter("OpenWeatherMapKey"); 
         }

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp.Extensions;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using System.Reflection;
 
 namespace WeatherAPI
 {
@@ -13,7 +15,10 @@ namespace WeatherAPI
     
     public class PlaceWeatherApi : ControllerBase
     {
-        ApiRequestTerminal terminal = new ApiRequestTerminal();
+        static string configPath = Path.Combine(
+                                   Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                   "Configs", "ApiClientKeys.json");
+        ApiRequestTerminal terminal = new ApiRequestTerminal(configPath);
         private ILogger<PlaceWeatherApi> _logger;
 
         public PlaceWeatherApi(ILogger<PlaceWeatherApi> logger)
@@ -36,7 +41,7 @@ namespace WeatherAPI
             catch(Exception e)
             {
                 _logger.LogError($"EXCEPTION: {e}");
-                return BadRequest(e);
+                return BadRequest($"Invalid parameter: {place}");
             }
         }
     }

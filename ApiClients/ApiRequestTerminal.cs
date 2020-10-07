@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ApiClients
 {
     public class ApiRequestTerminal
     {
-        LocationIqClient locationIqClient;
-        OpenWeatherMapClient openWeatherMapClient;
+        private LocationIqClient _locationIqClient;
+        private OpenWeatherMapClient _openWeatherMapClient;
 
-    public ApiRequestTerminal()
+    public ApiRequestTerminal(string configPath)
         {
-            locationIqClient = new LocationIqClient();
-            openWeatherMapClient = new OpenWeatherMapClient();
+        _locationIqClient = new LocationIqClient(configPath);
+        _openWeatherMapClient = new OpenWeatherMapClient(configPath);
         }
 
     public ApiResponse execute(string parameter, string location)
@@ -20,12 +18,12 @@ namespace ApiClients
             switch (parameter)
             {
                 case "coordinates":
-                    return openWeatherMapClient.apiRequest(location);
+                    return _openWeatherMapClient.apiRequest(location);
                 case "location":
-                    string geolocation = locationIqClient.apiRequest(location).value("geolocation");
-                    return openWeatherMapClient.apiRequest(geolocation);
+                    string geolocation = _locationIqClient.apiRequest(location).value("geolocation");
+                    return _openWeatherMapClient.apiRequest(geolocation);
                 default:
-                    throw new ArgumentException($"Invalid argument {0}.", parameter);
+                    throw new ArgumentException($"Invalid argument {parameter}.");
             }
         }
     }

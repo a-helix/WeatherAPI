@@ -5,14 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Reflection;
+using System.IO;
 
 namespace WeatherAPI
 {
     
     public class GeolocationWeatherApi : ControllerBase
     {
-        ApiRequestTerminal terminal = new ApiRequestTerminal();
+        static string configPath = Path.Combine(
+                                   Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                   "Configs", "ApiClientKeys.json");
+        ApiRequestTerminal terminal = new ApiRequestTerminal(configPath);
 
         [HttpGet]
         [ProducesResponseType(200)]
