@@ -20,6 +20,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitChat", "..\RabbitChat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logs", "Logs", "{F818DCF4-ABD7-4B21-A639-452BED4FCA25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRepository", "IRepository\IRepository.csproj", "{3D1C3A17-3868-4101-A870-FA90A2385D1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseClients", "DatabaseClient\DatabaseClients.csproj", "{8ABF1FE3-686D-4BC7-AF1F-B4E319BE0FA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +46,14 @@ Global
 		{ECE16F02-DAA9-4845-B6D3-3929268C6946}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECE16F02-DAA9-4845-B6D3-3929268C6946}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECE16F02-DAA9-4845-B6D3-3929268C6946}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D1C3A17-3868-4101-A870-FA90A2385D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1C3A17-3868-4101-A870-FA90A2385D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1C3A17-3868-4101-A870-FA90A2385D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1C3A17-3868-4101-A870-FA90A2385D1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ABF1FE3-686D-4BC7-AF1F-B4E319BE0FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ABF1FE3-686D-4BC7-AF1F-B4E319BE0FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ABF1FE3-686D-4BC7-AF1F-B4E319BE0FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ABF1FE3-686D-4BC7-AF1F-B4E319BE0FA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

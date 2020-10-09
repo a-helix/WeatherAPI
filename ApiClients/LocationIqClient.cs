@@ -9,19 +9,33 @@ namespace ApiClients
     public class LocationIqClient : IApiClient
     {
         private RestClient _client;
+        private JsonFileContent _locationIqRules;
         private string _key;
         private string _url;
 
-        public LocationIqClient(string configPath)
+        private int _apiRequestsLeft;
+        private int _requestsPerSecond;
+        private DateTime _lastRequestTime;
+        private DateTime _currentDay;
+        private TimeZoneInfo _localZone;
+
+        public LocationIqClient(string keyConfigPath, string apiRulesPath)
         {
-            JsonFileContent config = new JsonFileContent(configPath);
-            _client = new RestClient((string)config.selectedParameter("LocationIqUrl"));
-            _key = (string) config.selectedParameter("LocationIqKey");
+            JsonFileContent keyConfigs = new JsonFileContent(keyConfigPath);
+            _client = new RestClient((string)keyConfigs.selectedParameter("LocationIqUrl"));
+            _key = (string)keyConfigs.selectedParameter("LocationIqKey");
             _url = "/v1/search.php?";
+
+            _locationIqRules = new JsonFileContent(apiRulesPath);
+            _apiRequestsLeft = (int) _locationIqRules.selectedParameter("RequestsPerDay");
+            _requestsPerSecond = (int) _locationIqRules.selectedParameter("RequestsPerSecond");
+            _currentDay = DateTime.UtcNow;
+            _localZone = TimeZoneInfo.Local;
         }
 
         public ApiResponse apiRequest(string place)
         {
+            databaseContains();
             // TODO: Check input in DB first
             var request = new RestRequest(_url, Method.GET);
             string location = place.Trim();
@@ -50,6 +64,7 @@ namespace ApiClients
                 {"geolocation", geolocation },
                 {"area", string.Join(":", areaSplit[areaSplit.Length-3].Trim(), areaSplit[areaSplit.Length-1].Trim())  }
             };
+
             return new ApiResponse(result);
         }
 
@@ -60,5 +75,22 @@ namespace ApiClients
                 return true;
             return false;
         }
+
+        private void quantifyRequests()
+        {
+            if(_currentDay != DateTime.UtcNow.Day)
+            {
+                _currentDay = DateTime.UtcNow.Day;
+                _apiRequestsLeft = (int)_locationIqRules.selectedParameter("RequestsPerDay");
+            }
+            _lastRequestTime = DateTime.UtcNow;
+        }
+
+        private bool databaseContains()
+        {
+
+        }
+
+
     }
 }

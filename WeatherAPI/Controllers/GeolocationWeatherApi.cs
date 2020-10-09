@@ -26,6 +26,7 @@ namespace WeatherAPI
         {
             try
             {
+                /// <summary>Use the name of a city like "New York", or city and country like "New York:USA"</summary>
                 ApiResponse response = terminal.execute("coordinates", coordinates);
                 return Ok(response.json());
             }

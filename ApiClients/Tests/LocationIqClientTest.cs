@@ -11,7 +11,11 @@ namespace ApiClients.Tests
         static string configPath = Path.Combine(Directory.GetParent(
                                    Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName,
                                    "WeatherAPI", "Configs", "ApiClientKeys.json");
-        LocationIqClient client = new LocationIqClient(configPath);
+        static string rulesPath = Path.Combine(Directory.GetParent(
+                                   Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName,
+                                   "WeatherAPI", "Configs", "LocationIqRules.json");
+
+        LocationIqClient client = new LocationIqClient(configPath, rulesPath);
 
         [Test]
         public void apiRequestPositiveTest()
