@@ -17,7 +17,7 @@ namespace ApiClients
             return _cache[parameter];
         }
 
-        public string json()
+        public override string ToString()
         {
             string json = JsonConvert.SerializeObject(_cache, Formatting.Indented);
             return json;

@@ -8,7 +8,7 @@ namespace ApiClients.Tests
     {
         static string configPath = Path.Combine(Directory.GetParent(
                                    Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, 
-                                   "WeatherAPI", "Configs", "ApiClientKeys.json");
+                                   "WeatherAPI", "Configs", "ApiConfigs.json");
         OpenWeatherMapClient client = new OpenWeatherMapClient(configPath);
 
         [Test]

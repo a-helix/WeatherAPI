@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\RabbitChat\RabbitChat\RabbitChat.csproj" />
     <ProjectReference Include="..\Credentials\Credentials.csproj" />
+    <ProjectReference Include="..\DatabaseClient\DatabaseClients.csproj" />
   </ItemGroup>
 
 </Project>

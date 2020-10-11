@@ -7,10 +7,10 @@ namespace ApiClients
         private LocationIqClient _locationIqClient;
         private OpenWeatherMapClient _openWeatherMapClient;
 
-    public ApiRequestTerminal(string configPath, string locationApiRules)
+    public ApiRequestTerminal(string apiConfigPath)
         {
-        _locationIqClient = new LocationIqClient(configPath, locationApiRules);
-        _openWeatherMapClient = new OpenWeatherMapClient(configPath);
+        _locationIqClient = new LocationIqClient(apiConfigPath);
+        _openWeatherMapClient = new OpenWeatherMapClient(apiConfigPath);
         }
 
     public ApiResponse execute(string parameter, string location)

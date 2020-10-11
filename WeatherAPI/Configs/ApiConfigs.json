@@ -1,0 +1,9 @@
+{
+  "OpenWeatherMapUrl": "https://api.openweathermap.org/data/2.5/weather?",
+  "OpenWeatherMapKey": "b3f90dea99fa200df3df682251c8629a",
+  "LocationIqUrl": "https://us1.locationiq.com//v1/search.php?",
+  "LocationIqKey": "429335d1f4e352",
+  "RequestsPerDay": "10000",
+  "RequestsPerSecond": "2",
+  "databaseUrl": "mongodb://192.168.179.40:27017/?readPreference=primary&authSource=admin&appname=MongoDB%20Compass&ssl=false"
+}

@@ -10,10 +10,6 @@ namespace ApiClients
     {
         private RestClient _client;
         private string _key;
-        private string _url = "/data/2.5/weather?";
-        //private static string _configPath = Path.Combine(
-        //    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), 
-        //    "Configs", "ApiClientKeys.json");
 
         public OpenWeatherMapClient(string configPath)
         {
@@ -27,7 +23,7 @@ namespace ApiClients
             // Throws ArgumentException if coordinates are unrealistic.
             validCoordinates(geolocation);
             //Generates an HTTP request.
-            var request = new RestRequest(_url, Method.GET);
+            var request = new RestRequest(Method.GET);
             string[] coordinates = geolocation.Split(";");
             double latitude = double.Parse(coordinates[0]);
             double longitude = double.Parse(coordinates[1]);

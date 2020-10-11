@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IRepository
+namespace IRepo
 {
-    interface IRepository<T> : IDisposable
+    public interface IRepository<T>
         where T : class
     {
-        IEnumerable<T> getList();
-        T get(int id);
-        void create(T item);
-        void update(T item);
-        void delete(int id);
-        void save();
-        bool contains(T item);
+        T Get(string location);
+        void Create(T coordinates);
+        void Update(string geocoordinates, string newArea);
+        void Delete(string location);
+        bool Contains(string location);
     }
 }

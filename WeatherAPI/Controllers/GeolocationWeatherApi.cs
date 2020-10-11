@@ -15,7 +15,7 @@ namespace WeatherAPI
     {
         static string configPath = Path.Combine(
                                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                   "Configs", "ApiClientKeys.json");
+                                   "Configs", "ApiConfigs.json");
         ApiRequestTerminal terminal = new ApiRequestTerminal(configPath);
 
         [HttpGet]

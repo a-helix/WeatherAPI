@@ -19,15 +19,9 @@ namespace WeatherAPI
         //api configurations
         static string apiConfigPath = Path.Combine(
                                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                   "Configs", "ApiClientKeys.json");
+                                   "Configs", "ApiConfigs.json");
         ApiRequestTerminal terminal = new ApiRequestTerminal(apiConfigPath);
         private ILogger<PlaceWeatherApi> _logger;
-        //request counting configurations
-        static JsonFileContent locationIqRules = new JsonFileContent(Path.Combine(
-                                   Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                   "Configs", "LocationIqRules.json"));
-        int requestsLeft = (int) locationIqRules.selectedParameter("RequestsPerDay");
-        int requestsPerSecond = (int) locationIqRules.selectedParameter("RequestsPerSecond");
 
         public PlaceWeatherApi(ILogger<PlaceWeatherApi> logger)
         {

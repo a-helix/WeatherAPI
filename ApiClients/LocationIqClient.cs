@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Collections.Generic;
 using System;
+using DatabaseClient;
 
 namespace ApiClients
 {
@@ -11,33 +12,35 @@ namespace ApiClients
         private RestClient _client;
         private JsonFileContent _locationIqRules;
         private string _key;
-        private string _url;
-
         private int _apiRequestsLeft;
         private int _requestsPerSecond;
-        private DateTime _lastRequestTime;
+        private DateTime _lastRequestTime = DateTime.UtcNow;
         private DateTime _currentDay;
         private TimeZoneInfo _localZone;
+        MongoDatabaseClient _databaseClient;
 
-        public LocationIqClient(string keyConfigPath, string apiRulesPath)
+
+        public LocationIqClient(string apiConfigPath)
         {
-            JsonFileContent keyConfigs = new JsonFileContent(keyConfigPath);
-            _client = new RestClient((string)keyConfigs.selectedParameter("LocationIqUrl"));
-            _key = (string)keyConfigs.selectedParameter("LocationIqKey");
-            _url = "/v1/search.php?";
-
-            _locationIqRules = new JsonFileContent(apiRulesPath);
-            _apiRequestsLeft = (int) _locationIqRules.selectedParameter("RequestsPerDay");
-            _requestsPerSecond = (int) _locationIqRules.selectedParameter("RequestsPerSecond");
+            JsonFileContent configs = new JsonFileContent(apiConfigPath);
+            _client = new RestClient((string) configs.selectedParameter("LocationIqUrl"));
+            _key = (string) configs.selectedParameter("LocationIqKey");
+            _apiRequestsLeft = int.Parse((string) configs.selectedParameter("RequestsPerDay"));
+            _requestsPerSecond = int.Parse((string) configs.selectedParameter("RequestsPerSecond"));
             _currentDay = DateTime.UtcNow;
             _localZone = TimeZoneInfo.Local;
+            string databaseUrl = (string)configs.selectedParameter("databaseUrl");
+            _databaseClient = new MongoDatabaseClient(databaseUrl, "areas");
         }
 
         public ApiResponse apiRequest(string place)
         {
-            databaseContains();
-            // TODO: Check input in DB first
-            var request = new RestRequest(_url, Method.GET);
+            if(_databaseClient.Contains(place))
+            {
+                return _databaseClient.Get(place);
+            }
+            quantifyRequests();
+            var request = new RestRequest(Method.GET);
             string location = place.Trim();
             request.AddParameter("format", "json");
             request.AddParameter("q", location);
@@ -62,9 +65,11 @@ namespace ApiClients
                 {"latitude",  lat },
                 {"longitude", lon },
                 {"geolocation", geolocation },
-                {"area", string.Join(":", areaSplit[areaSplit.Length-3].Trim(), areaSplit[areaSplit.Length-1].Trim())  }
+                {"area", string.Join(":", areaSplit[areaSplit.Length-3].Trim(),
+                                          areaSplit[areaSplit.Length-4].Trim(), 
+                                          areaSplit[areaSplit.Length-1].Trim())  }
             };
-
+            _lastRequestTime = DateTime.UtcNow;
             return new ApiResponse(result);
         }
 
@@ -78,19 +83,22 @@ namespace ApiClients
 
         private void quantifyRequests()
         {
-            if(_currentDay != DateTime.UtcNow.Day)
+            var now = DateTime.UtcNow;
+            if(_currentDay.Day != now.Day)
             {
-                _currentDay = DateTime.UtcNow.Day;
-                _apiRequestsLeft = (int)_locationIqRules.selectedParameter("RequestsPerDay");
+                _currentDay = DateTime.UtcNow;
+                _apiRequestsLeft = int.Parse((string)_locationIqRules.selectedParameter("RequestsPerDay"));
             }
-            _lastRequestTime = DateTime.UtcNow;
+            if(_lastRequestTime.Ticks - now.Ticks < 1000/ _requestsPerSecond)
+            {
+                int delay = (1000 /_requestsPerSecond) - (int)(_lastRequestTime.Ticks - now.Ticks);
+                System.Threading.Thread.Sleep(delay);
+            }
+            if(_apiRequestsLeft < 0)
+            {
+                throw new Exception("LocationIq: No more api requests.");
+            }
+            _apiRequestsLeft -= 1;
         }
-
-        private bool databaseContains()
-        {
-
-        }
-
-
     }
 }

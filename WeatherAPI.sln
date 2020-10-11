@@ -18,11 +18,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Credentials", "Credentials\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitChat", "..\RabbitChat\RabbitChat\RabbitChat.csproj", "{ECE16F02-DAA9-4845-B6D3-3929268C6946}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logs", "Logs", "{F818DCF4-ABD7-4B21-A639-452BED4FCA25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRepo", "IRepository\IRepo.csproj", "{3D1C3A17-3868-4101-A870-FA90A2385D1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRepository", "IRepository\IRepository.csproj", "{3D1C3A17-3868-4101-A870-FA90A2385D1B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseClients", "DatabaseClient\DatabaseClients.csproj", "{8ABF1FE3-686D-4BC7-AF1F-B4E319BE0FA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseClients", "DatabaseClient\DatabaseClients.csproj", "{8ABF1FE3-686D-4BC7-AF1F-B4E319BE0FA3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3D1C3A17-3868-4101-A870-FA90A2385D1B} = {3D1C3A17-3868-4101-A870-FA90A2385D1B}
+		{36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0} = {36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

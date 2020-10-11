@@ -9,11 +9,8 @@ namespace ApiClients.Tests
     {
         static string configPath = Path.Combine(Directory.GetParent(
                                    Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName,
-                                   "WeatherAPI", "Configs", "ApiClientKeys.json");
-        static string rulesPath = Path.Combine(Directory.GetParent(
-                                   Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName,
-                                   "WeatherAPI", "Configs", "LocationIqRules.json");
-        ApiRequestTerminal terminal = new ApiRequestTerminal(configPath, rulesPath);
+                                   "WeatherAPI", "Configs", "ApiConfigs.json");
+        ApiRequestTerminal terminal = new ApiRequestTerminal(configPath);
 
         [Test]
         public void executePositiveTest()

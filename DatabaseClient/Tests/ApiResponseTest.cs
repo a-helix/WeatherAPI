@@ -23,5 +23,11 @@ namespace ApiClients.Tests
             Assert.Throws<KeyNotFoundException>(() => test.value("not exhist"),
                 "The given key 'not exhist' was not present in the dictionary.");
         }
+
+        [Test]
+        public void toStringTest()
+        {
+            Assert.AreEqual(test.ToString(), "{ \"key\": \"value\" }");
+        }
     }
 }
