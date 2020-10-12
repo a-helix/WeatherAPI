@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 using System.IO;
+using DatabaseClient;
 
 namespace WeatherAPI
 {
@@ -28,7 +29,7 @@ namespace WeatherAPI
             {
                 /// <summary>Use the name of a city like "New York", or city and country like "New York:USA"</summary>
                 ApiResponse response = terminal.execute("coordinates", coordinates);
-                return Ok(response.json());
+                return Ok(response.ToString());
             }
             catch (Exception e)
             {

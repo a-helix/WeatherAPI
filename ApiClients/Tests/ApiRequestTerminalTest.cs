@@ -2,6 +2,7 @@
 using System.IO;
 using NUnit.Framework;
 using Credentials;
+using DatabaseClient;
 
 namespace ApiClients.Tests
 {
@@ -16,7 +17,7 @@ namespace ApiClients.Tests
         public void executePositiveTest()
         {
             var response = terminal.execute("coordinates", "40.75;-73.99");
-            var result = new JsonStringContent(response.json());
+            var result = new JsonStringContent(response.ToString());
             Assert.AreEqual(result.selectedParameter("geolocation"), "40.75;-73.99");
             Assert.AreEqual(result.selectedParameter("timezone"), "-14400");
         }

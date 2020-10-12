@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Reflection;
 using Credentials;
+using DatabaseClient;
 
 namespace WeatherAPI
 {
@@ -38,7 +39,7 @@ namespace WeatherAPI
             {
                 ApiResponse response = terminal.execute("location", place);
                 _logger.LogInformation($"Successful request: {place}");
-                return Ok(response.json());
+                return Ok(response.ToString());
             }
             catch(Exception e)
             {

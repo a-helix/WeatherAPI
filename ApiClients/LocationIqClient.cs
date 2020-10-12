@@ -10,26 +10,24 @@ namespace ApiClients
     public class LocationIqClient : IApiClient
     {
         private RestClient _client;
-        private JsonFileContent _locationIqRules;
+        private JsonFileContent _configs;
         private string _key;
         private int _apiRequestsLeft;
         private int _requestsPerSecond;
         private DateTime _lastRequestTime = DateTime.UtcNow;
         private DateTime _currentDay;
-        private TimeZoneInfo _localZone;
         MongoDatabaseClient _databaseClient;
-
+        
 
         public LocationIqClient(string apiConfigPath)
         {
-            JsonFileContent configs = new JsonFileContent(apiConfigPath);
-            _client = new RestClient((string) configs.selectedParameter("LocationIqUrl"));
-            _key = (string) configs.selectedParameter("LocationIqKey");
-            _apiRequestsLeft = int.Parse((string) configs.selectedParameter("RequestsPerDay"));
-            _requestsPerSecond = int.Parse((string) configs.selectedParameter("RequestsPerSecond"));
+            _configs = new JsonFileContent(apiConfigPath);
+            _client = new RestClient((string) _configs.selectedParameter("LocationIqUrl"));
+            _key = (string) _configs.selectedParameter("LocationIqKey");
+            _apiRequestsLeft = int.Parse((string) _configs.selectedParameter("RequestsPerDay"));
+            _requestsPerSecond = int.Parse((string) _configs.selectedParameter("RequestsPerSecond"));
             _currentDay = DateTime.UtcNow;
-            _localZone = TimeZoneInfo.Local;
-            string databaseUrl = (string)configs.selectedParameter("databaseUrl");
+            string databaseUrl = (string) _configs.selectedParameter("databaseUrl");
             _databaseClient = new MongoDatabaseClient(databaseUrl, "areas");
         }
 
@@ -65,9 +63,11 @@ namespace ApiClients
                 {"latitude",  lat },
                 {"longitude", lon },
                 {"geolocation", geolocation },
-                {"area", string.Join(":", areaSplit[areaSplit.Length-3].Trim(),
-                                          areaSplit[areaSplit.Length-4].Trim(), 
-                                          areaSplit[areaSplit.Length-1].Trim())  }
+                {
+                "area", string.Join(":", areaSplit[areaSplit.Length-3].Trim(),
+                                            areaSplit[areaSplit.Length-4].Trim(), 
+                                            areaSplit[areaSplit.Length-1].Trim())  
+                }
             };
             _lastRequestTime = DateTime.UtcNow;
             return new ApiResponse(result);
@@ -87,7 +87,7 @@ namespace ApiClients
             if(_currentDay.Day != now.Day)
             {
                 _currentDay = DateTime.UtcNow;
-                _apiRequestsLeft = int.Parse((string)_locationIqRules.selectedParameter("RequestsPerDay"));
+                _apiRequestsLeft = int.Parse((string) _configs.selectedParameter("RequestsPerDay"));
             }
             if(_lastRequestTime.Ticks - now.Ticks < 1000/ _requestsPerSecond)
             {

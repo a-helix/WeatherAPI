@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace ApiClients.Tests
+namespace DatabaseClient.Tests
 {
     public class ApiResponseTest
     {
@@ -10,6 +10,18 @@ namespace ApiClients.Tests
             {"key", "value" }
         };
         ApiResponse test = new ApiResponse(dict);
+
+        [Test]
+        public void sizeTest()
+        {
+            Assert.AreEqual(1, test.size());
+        }
+
+        public void listTest()
+        {
+            string[] compare = { "key" };
+            Assert.AreEqual(compare, test.list());
+        }
 
         [Test]
         public void valuePositiveTest()
@@ -28,6 +40,30 @@ namespace ApiClients.Tests
         public void toStringTest()
         {
             Assert.AreEqual(test.ToString(), "{ \"key\": \"value\" }");
+        }
+
+        [Test]
+        public void GetHashCodeTest()
+        {
+            Assert.Equals(100, dict.GetHashCode());
+        }
+
+        [Test]
+        public void EqualsPositiveTest()
+        {
+            ApiResponse compare = new ApiResponse(dict);
+            Assert.IsTrue(test.Equals(compare));
+        }
+
+        [Test]
+        public void EqualsNegativeTest()
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>()
+            {
+                {"Hello", "World" }
+            };
+            ApiResponse compare = new ApiResponse(dict);
+            Assert.IsFalse(test.Equals(compare));
         }
     }
 }

@@ -1,8 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\Tests\**" />
+    <Content Remove="Controllers\Tests\**" />
+    <EmbeddedResource Remove="Controllers\Tests\**" />
+    <None Remove="Controllers\Tests\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -19,10 +26,6 @@
     <None Update="Configs\nlog.config.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\Tests\" />
   </ItemGroup>
 
   <ItemGroup>
