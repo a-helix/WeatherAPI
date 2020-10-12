@@ -28,7 +28,7 @@ namespace ApiClients
             _requestsPerSecond = int.Parse((string) _configs.selectedParameter("RequestsPerSecond"));
             _currentDay = DateTime.UtcNow;
             string databaseUrl = (string) _configs.selectedParameter("databaseUrl");
-            _databaseClient = new MongoDatabaseClient(databaseUrl, "areas");
+            _databaseClient = new MongoDatabaseClient(databaseUrl, "areas", "areas");
         }
 
         public ApiResponse apiRequest(string place)

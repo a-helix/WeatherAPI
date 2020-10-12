@@ -8,13 +8,26 @@ using NUnit.Framework;
 
 namespace DatabaseClients.Tests
 {
-    class MongoDatabaseClientTest
+    public class MongoDatabaseClientTest : MongoDatabaseClient
     {
         static string databaseConfigPath = Path.Combine(Directory.GetParent(
                                    Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName,
                                    "WeatherAPI", "Configs", "ApiConfigs.json");
         static JsonFileContent config = new JsonFileContent(databaseConfigPath);
-        MongoDatabaseClient testClient = new MongoDatabaseClient((string) config.selectedParameter("databaseUrl"), "test");
+        MongoDatabaseClient testClient = new MongoDatabaseClient((string) config.selectedParameter("databaseUrl"), "test", "test");
+
+        public bool Contains(string location)
+        {
+            try
+            {
+                var test = Get(location);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
         [Test]
         public void ContainsTest()
@@ -30,7 +43,7 @@ namespace DatabaseClients.Tests
         }
 
         [Test]
-        public void CreatePositieTest()
+        public void InsertPositieTest()
         {
             Dictionary<string, string> dict = new Dictionary<string, string>()
             {
@@ -38,7 +51,7 @@ namespace DatabaseClients.Tests
             };
             ApiResponse test = new ApiResponse(dict);
             Assert.IsFalse(testClient.Contains("Shire"));
-            testClient.Create(test);
+            testClient.Insert(test);
             Assert.IsTrue(testClient.Contains("Shire"));
         }
 
@@ -85,7 +98,7 @@ namespace DatabaseClients.Tests
                 {"geolocation", "0;0" }
             };
             ApiResponse test = new ApiResponse(dict);
-            testClient.Create(test);
+            testClient.Insert(test);
 
         }
 

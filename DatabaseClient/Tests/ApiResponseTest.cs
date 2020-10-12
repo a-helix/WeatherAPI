@@ -17,6 +17,7 @@ namespace DatabaseClient.Tests
             Assert.AreEqual(1, test.size());
         }
 
+        [Test]
         public void listTest()
         {
             string[] compare = { "key" };

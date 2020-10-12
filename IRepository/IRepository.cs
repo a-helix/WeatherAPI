@@ -7,9 +7,8 @@ namespace IRepo
         where T : class
     {
         T Get(string location);
-        void Create(T coordinates);
+        void Insert(T coordinates);
         void Update(string geocoordinates, string newArea);
         void Delete(string location);
-        bool Contains(string location);
     }
 }

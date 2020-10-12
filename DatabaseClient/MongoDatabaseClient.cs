@@ -23,29 +23,7 @@ namespace DatabaseClient
             _collection = _database.GetCollection<BsonDocument>(collection);
         }
 
-        public MongoDatabaseClient(string configPath, string database)
-        {
-            var databaseConfig = new JsonFileContent(configPath);
-            _url = (string)databaseConfig.selectedParameter("databaseUrl");
-            _client = new MongoClient(_url);
-            _database = _client.GetDatabase(database);
-            _collection = _database.GetCollection<BsonDocument>(database);
-        }
-
-        public bool Contains(string location)
-        {
-            try
-            {
-                var test = Get(location);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        public void Create(ApiResponse coordinates)
+        public void Insert(ApiResponse coordinates)
         {
             BsonDocument document = BsonDocument.Parse(coordinates.ToString());
             _collection.InsertOne(document);
