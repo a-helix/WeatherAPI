@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Credentials\Credentials.csproj" />
-    <ProjectReference Include="..\IRepository\IRepo.csproj" />
+    <ProjectReference Include="..\IRepository\Repository.csproj" />
   </ItemGroup>
 
 </Project>

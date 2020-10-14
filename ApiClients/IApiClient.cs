@@ -4,6 +4,6 @@ namespace ApiClients
 {
     public interface IApiClient
     {
-        public ApiResponse apiRequest(string place);
+        public ApiResponse ApiRequest(string place);
     }
 }

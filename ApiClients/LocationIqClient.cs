@@ -22,20 +22,21 @@ namespace ApiClients
         public LocationIqClient(string apiConfigPath)
         {
             _configs = new JsonFileContent(apiConfigPath);
-            _client = new RestClient((string) _configs.selectedParameter("LocationIqUrl"));
-            _key = (string) _configs.selectedParameter("LocationIqKey");
-            _apiRequestsLeft = int.Parse((string) _configs.selectedParameter("RequestsPerDay"));
-            _requestsPerSecond = int.Parse((string) _configs.selectedParameter("RequestsPerSecond"));
+            _client = new RestClient((string) _configs.Parameter("LocationIqUrl"));
+            _key = (string) _configs.Parameter("LocationIqKey");
+            _apiRequestsLeft = int.Parse((string) _configs.Parameter("RequestsPerDay"));
+            _requestsPerSecond = int.Parse((string) _configs.Parameter("RequestsPerSecond"));
             _currentDay = DateTime.UtcNow;
-            string databaseUrl = (string) _configs.selectedParameter("databaseUrl");
+            string databaseUrl = (string) _configs.Parameter("databaseUrl");
             _databaseClient = new MongoDatabaseClient(databaseUrl, "areas", "areas");
         }
 
-        public ApiResponse apiRequest(string place)
+        public ApiResponse ApiRequest(string place)
         {
-            if(_databaseClient.Contains(place))
+            ApiResponse dbResponse = _databaseClient.Get(place);
+            if (dbResponse != null)
             {
-                return _databaseClient.Get(place);
+                return dbResponse;
             }
             quantifyRequests();
             var request = new RestRequest(Method.GET);
@@ -45,7 +46,7 @@ namespace ApiClients
             request.AddParameter("key", _key);
             var response = _client.Execute(request);
             var content = response.Content;
-            if (locationNotExhist(content))
+            if (LocationNotExhist(content))
                 throw new ArgumentException($"Unknown location {place}.");
             // Extracts coordinates.
             var contentArray = JArray.Parse(content);
@@ -73,7 +74,7 @@ namespace ApiClients
             return new ApiResponse(result);
         }
 
-        private bool locationNotExhist(string response)
+        private bool LocationNotExhist(string response)
         {
             string notExhist = "Unable to geocode";
             if (response.Contains(notExhist))
@@ -87,7 +88,7 @@ namespace ApiClients
             if(_currentDay.Day != now.Day)
             {
                 _currentDay = DateTime.UtcNow;
-                _apiRequestsLeft = int.Parse((string) _configs.selectedParameter("RequestsPerDay"));
+                _apiRequestsLeft = int.Parse((string) _configs.Parameter("RequestsPerDay"));
             }
             if(_lastRequestTime.Ticks - now.Ticks < 1000/ _requestsPerSecond)
             {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IRepo
+namespace Repository
 {
     public interface IRepository<T>
         where T : class

@@ -15,14 +15,14 @@ namespace ApiClients
         public OpenWeatherMapClient(string configPath)
         {
             JsonFileContent config = new JsonFileContent(configPath);
-            _client = new RestClient((string)config.selectedParameter("OpenWeatherMapUrl"));
-            _key = (string) config.selectedParameter("OpenWeatherMapKey"); 
+            _client = new RestClient((string)config.Parameter("OpenWeatherMapUrl"));
+            _key = (string) config.Parameter("OpenWeatherMapKey"); 
         }
 
-        public ApiResponse apiRequest(string geolocation)
+        public ApiResponse ApiRequest(string geolocation)
         {
             // Throws ArgumentException if coordinates are unrealistic.
-            validCoordinates(geolocation);
+            ValidCoordinates(geolocation);
             //Generates an HTTP request.
             var request = new RestRequest(Method.GET);
             string[] coordinates = geolocation.Split(";");
@@ -50,7 +50,7 @@ namespace ApiClients
             return new ApiResponse(weather);
         }
 
-        private void validCoordinates(string geolocation)
+        private void ValidCoordinates(string geolocation)
         {
             try
             {

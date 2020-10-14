@@ -14,16 +14,16 @@ namespace ApiClients
         _openWeatherMapClient = new OpenWeatherMapClient(apiConfigPath);
         }
 
-    public ApiResponse execute(string parameter, string location)
+    public ApiResponse Execute(string parameter, string location)
         {
             switch (parameter)
             {
                 case "coordinates":
-                    return _openWeatherMapClient.apiRequest(location);
+                    return _openWeatherMapClient.ApiRequest(location);
                 case "location":
                     // Use the name of a city like "New York:New York County:USA"
-                    string geolocation = _locationIqClient.apiRequest(location).value("geolocation");
-                    return _openWeatherMapClient.apiRequest(geolocation);
+                    string geolocation = _locationIqClient.ApiRequest(location).Value("geolocation");
+                    return _openWeatherMapClient.ApiRequest(geolocation);
                 default:
                     throw new ArgumentException($"Invalid argument {parameter}.");
             }

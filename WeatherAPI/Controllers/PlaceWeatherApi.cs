@@ -37,7 +37,7 @@ namespace WeatherAPI
         {
             try
             {
-                ApiResponse response = terminal.execute("location", place);
+                ApiResponse response = terminal.Execute("location", place);
                 _logger.LogInformation($"Successful request: {place}");
                 return Ok(response.ToString());
             }

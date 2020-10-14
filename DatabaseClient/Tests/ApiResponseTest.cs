@@ -12,41 +12,41 @@ namespace DatabaseClient.Tests
         ApiResponse test = new ApiResponse(dict);
 
         [Test]
-        public void sizeTest()
+        public void SizeTest()
         {
-            Assert.AreEqual(1, test.size());
+            Assert.AreEqual(1, test.Size());
         }
 
         [Test]
-        public void listTest()
+        public void ListTest()
         {
             string[] compare = { "key" };
-            Assert.AreEqual(compare, test.list());
+            Assert.AreEqual(compare, test.List());
         }
 
         [Test]
-        public void valuePositiveTest()
+        public void ValuePositiveTest()
         {
-            Assert.AreEqual("value", test.value("key"));
+            Assert.AreEqual("value", test.Value("key"));
         }
 
         [Test]
-        public void valueNegativeTest()
+        public void ValueNegativeTest()
         {
-            Assert.Throws<KeyNotFoundException>(() => test.value("not exhist"),
+            Assert.Throws<KeyNotFoundException>(() => test.Value("not exhist"),
                 "The given key 'not exhist' was not present in the dictionary.");
         }
 
         [Test]
-        public void toStringTest()
+        public void ToStringTest()
         {
-            Assert.AreEqual(test.ToString(), "{ \"key\": \"value\" }");
+            Assert.AreEqual(test.ToString(), "{\r\n  \"key\": \"value\"\r\n}");
         }
 
         [Test]
         public void GetHashCodeTest()
         {
-            Assert.Equals(100, dict.GetHashCode());
+            Assert.AreEqual(62407605, dict.GetHashCode());
         }
 
         [Test]

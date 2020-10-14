@@ -15,17 +15,17 @@ namespace DatabaseClient
             _cache = cache;
         }
 
-        public string value(string parameter)
+        public string Value(string parameter)
         {
             return _cache[parameter];
         }
 
-        public int size()
+        public int Size()
         {
             return _cache.Count;
         }
 
-        public string[] list()
+        public string[] List()
         {
             return _cache.Keys.ToArray();
         }
@@ -44,15 +44,15 @@ namespace DatabaseClient
             }
 
             ApiResponse p = (ApiResponse)obj;
-            if (p.size() != this.size())
+            if (p.Size() != this.Size())
             {
                 return false;
             }
-            foreach(string i in p.list())
+            foreach(string i in p.List())
             {
                 try
                 {
-                    if (this.value(i) != p.value(i))
+                    if (this.Value(i) != p.Value(i))
                         return false;
                 }
                 catch(Exception)

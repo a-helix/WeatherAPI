@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using Credentials;
 using DatabaseClient;
 using NUnit.Framework;
@@ -10,13 +9,24 @@ namespace DatabaseClients.Tests
 {
     public class MongoDatabaseClientTest : MongoDatabaseClient
     {
+        public MongoDatabaseClientTest(string configPath, string database, string collection)
+                                     : base(configPath, database, collection)
+        {
+
+        }
+
         static string databaseConfigPath = Path.Combine(Directory.GetParent(
                                    Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName,
                                    "WeatherAPI", "Configs", "ApiConfigs.json");
         static JsonFileContent config = new JsonFileContent(databaseConfigPath);
-        MongoDatabaseClient testClient = new MongoDatabaseClient((string) config.selectedParameter("databaseUrl"), "test", "test");
+        static string databaseUrl = (string) config.Parameter("databaseUrl");
+        private MongoDatabaseClientTest testClient = new MongoDatabaseClientTest(databaseUrl, "test", "test");
 
-        public bool Contains(string location)
+
+
+        
+
+        private bool Contains(string location)
         {
             try
             {
@@ -30,7 +40,13 @@ namespace DatabaseClients.Tests
         }
 
         [Test]
-        public void ContainsTest()
+        public void ContainsNegativeTest()
+        {
+            Assert.IsFalse(testClient.Contains("Shire"));
+        }
+
+        [Test]
+        public void ContainsPositiveTest()
         {
             Dictionary<string, string> dict = new Dictionary<string, string>()
             {
@@ -38,7 +54,7 @@ namespace DatabaseClients.Tests
             };
             ApiResponse test = new ApiResponse(dict);
             Assert.IsFalse(testClient.Contains("Shire"));
-            testClient.Create(test);
+            testClient.Insert(test);
             Assert.IsTrue(testClient.Contains("Shire"));
         }
 
@@ -63,7 +79,7 @@ namespace DatabaseClients.Tests
                 {"area", "Delete" }
             };
             ApiResponse test = new ApiResponse(dict);
-            testClient.Create(test);
+            testClient.Insert(test);
             Assert.IsTrue(testClient.Contains("Delete"));
             testClient.Delete("Delete");
             Assert.IsFalse(testClient.Contains("Delete"));
@@ -79,7 +95,14 @@ namespace DatabaseClients.Tests
         [Test]
         public void GetPositieTest()
         {
-
+            Dictionary<string, string> dict = new Dictionary<string, string>()
+            {
+                {"area", "GetPositiveTest" }
+            };
+            ApiResponse test = new ApiResponse(dict);
+            testClient.Insert(test);
+            ApiResponse compare = testClient.Get("GetPositiveTest");
+            Assert.IsTrue(test.Equals(compare));
         }
 
         [Test]
