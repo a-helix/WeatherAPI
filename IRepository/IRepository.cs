@@ -6,8 +6,8 @@ namespace Repository
     public interface IRepository<T>
         where T : class
     {
-        T Get(string location);
-        void Insert(T coordinates);
+        void Create(T coordinates);
+        T Read(string location);
         void Update(string geocoordinates, string newArea);
         void Delete(string location);
     }

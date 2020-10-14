@@ -33,7 +33,7 @@ namespace ApiClients
 
         public ApiResponse ApiRequest(string place)
         {
-            ApiResponse dbResponse = _databaseClient.Get(place);
+            ApiResponse dbResponse = _databaseClient.Read(place);
             if (dbResponse != null)
             {
                 return dbResponse;
@@ -95,7 +95,7 @@ namespace ApiClients
                 int delay = (1000 /_requestsPerSecond) - (int)(_lastRequestTime.Ticks - now.Ticks);
                 System.Threading.Thread.Sleep(delay);
             }
-            if(_apiRequestsLeft < 0)
+            if(_apiRequestsLeft <= 0)
             {
                 throw new Exception("LocationIq: No more api requests.");
             }

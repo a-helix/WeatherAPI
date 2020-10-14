@@ -5,5 +5,5 @@
   "LocationIqKey": "429335d1f4e352",
   "RequestsPerDay": "10000",
   "RequestsPerSecond": "2",
-  "databaseUrl": "mongodb://192.168.80.128:27017/?readPreference=primary&authSource=admin&appname=MongoDB%20Compass&ssl=false"
+  "databaseUrl": "mongodb://192.168.80.128:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false"
 }

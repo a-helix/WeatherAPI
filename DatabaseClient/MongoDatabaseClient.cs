@@ -21,19 +21,13 @@ namespace DatabaseClient
             _collection = _database.GetCollection<BsonDocument>(collection);
         }
 
-        public void Insert(ApiResponse coordinates)
+        public void Create(ApiResponse coordinates)
         {
             BsonDocument document = BsonDocument.Parse(coordinates.ToString());
             _collection.InsertOne(document);
         }
 
-        public void Delete(string location)
-        {
-            var deleteFilter = Builders<BsonDocument>.Filter.Eq("geolocation", location);
-            _collection.DeleteOne(deleteFilter);
-        }
-
-        public ApiResponse Get(string location)
+        public ApiResponse Read(string location)
         {
             var filter = Builders<BsonDocument>.Filter.Eq("area", location);
             var results = _collection.Find(filter).FirstOrDefault();
@@ -52,6 +46,12 @@ namespace DatabaseClient
             var filter = Builders<BsonDocument>.Filter.Eq("geolocation", geocoordinates);
             var update = Builders<BsonDocument>.Update.Set("area", newArea);
             _collection.UpdateOne(filter, update);
+        }
+
+        public void Delete(string location)
+        {
+            var deleteFilter = Builders<BsonDocument>.Filter.Eq("geolocation", location);
+            _collection.DeleteOne(deleteFilter);
         }
     }
 }

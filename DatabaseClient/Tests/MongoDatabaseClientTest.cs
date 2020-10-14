@@ -30,7 +30,7 @@ namespace DatabaseClients.Tests
         {
             try
             {
-                var test = Get(location);
+                var test = Read(location);
                 return true;
             }
             catch (Exception)
@@ -54,7 +54,7 @@ namespace DatabaseClients.Tests
             };
             ApiResponse test = new ApiResponse(dict);
             Assert.IsFalse(testClient.Contains("Shire"));
-            testClient.Insert(test);
+            testClient.Create(test);
             Assert.IsTrue(testClient.Contains("Shire"));
         }
 
@@ -67,7 +67,7 @@ namespace DatabaseClients.Tests
             };
             ApiResponse test = new ApiResponse(dict);
             Assert.IsFalse(testClient.Contains("Shire"));
-            testClient.Insert(test);
+            testClient.Create(test);
             Assert.IsTrue(testClient.Contains("Shire"));
         }
 
@@ -79,7 +79,7 @@ namespace DatabaseClients.Tests
                 {"area", "Delete" }
             };
             ApiResponse test = new ApiResponse(dict);
-            testClient.Insert(test);
+            testClient.Create(test);
             Assert.IsTrue(testClient.Contains("Delete"));
             testClient.Delete("Delete");
             Assert.IsFalse(testClient.Contains("Delete"));
@@ -100,15 +100,15 @@ namespace DatabaseClients.Tests
                 {"area", "GetPositiveTest" }
             };
             ApiResponse test = new ApiResponse(dict);
-            testClient.Insert(test);
-            ApiResponse compare = testClient.Get("GetPositiveTest");
+            testClient.Create(test);
+            ApiResponse compare = testClient.Read("GetPositiveTest");
             Assert.IsTrue(test.Equals(compare));
         }
 
         [Test]
         public void GetNegativeTest()
         {
-            testClient.Get("Who knows where.");
+            testClient.Read("Who knows where.");
             Assert.IsTrue(false);
         }
 
@@ -121,7 +121,7 @@ namespace DatabaseClients.Tests
                 {"geolocation", "0;0" }
             };
             ApiResponse test = new ApiResponse(dict);
-            testClient.Insert(test);
+            testClient.Create(test);
 
         }
 
