@@ -13,7 +13,7 @@ namespace DatabaseClient
         protected IMongoCollection<BsonDocument> _collection;
 
         public MongoDatabaseClient(string configPath, string database, string collection)
-        {
+        {   
             var databaseConfig = new JsonFileContent(configPath);
             var url = (string) databaseConfig.Parameter("databaseUrl");
             _client = new MongoClient(url);

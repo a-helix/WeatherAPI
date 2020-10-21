@@ -16,7 +16,6 @@ namespace ApiClients
         private int _requestsPerSecond;
         private DateTime _lastRequestTime = DateTime.UtcNow;
         private DateTime _currentDay;
-        MongoDatabaseClient _databaseClient;
         
 
         public LocationIqClient(string apiConfigPath)
@@ -26,19 +25,39 @@ namespace ApiClients
             _key = (string) _configs.Parameter("LocationIqKey");
             _apiRequestsLeft = int.Parse((string) _configs.Parameter("RequestsPerDay"));
             _requestsPerSecond = int.Parse((string) _configs.Parameter("RequestsPerSecond"));
-            _currentDay = DateTime.UtcNow;
-            string databaseUrl = (string) _configs.Parameter("databaseUrl");
-            _databaseClient = new MongoDatabaseClient(databaseUrl, "areas", "areas");
+            _currentDay = DateTime.UtcNow;   
         }
 
         public ApiResponse ApiRequest(string place)
+        { 
+            QuantifyRequests();
+            var content = SendRequest(place);
+            var result = ExtractCoordinates(content);
+            return new ApiResponse(result);
+        }
+
+        private void QuantifyRequests()
         {
-            ApiResponse dbResponse = _databaseClient.Read(place);
-            if (dbResponse != null)
+            var now = DateTime.UtcNow;
+            if (_currentDay.Day != now.Day)
             {
-                return dbResponse;
+                _currentDay = DateTime.UtcNow;
+                _apiRequestsLeft = int.Parse((string)_configs.Parameter("RequestsPerDay"));
             }
-            quantifyRequests();
+            if (_lastRequestTime.Ticks - now.Ticks < 1000 / _requestsPerSecond)
+            {
+                int delay = (1000 / _requestsPerSecond) - (int)(_lastRequestTime.Ticks - now.Ticks);
+                System.Threading.Thread.Sleep(delay);
+            }
+            if (_apiRequestsLeft <= 0)
+            {
+                throw new Exception("LocationIq: No more api requests.");
+            }
+            _apiRequestsLeft -= 1;
+        }
+
+        private string SendRequest(string place)
+        {
             var request = new RestRequest(Method.GET);
             string location = place.Trim();
             request.AddParameter("format", "json");
@@ -48,7 +67,12 @@ namespace ApiClients
             var content = response.Content;
             if (LocationNotExhist(content))
                 throw new ArgumentException($"Unknown location {place}.");
-            // Extracts coordinates.
+            _lastRequestTime = DateTime.UtcNow;
+            return content;
+        }
+
+        private Dictionary<string, string> ExtractCoordinates(string content)
+        {
             var contentArray = JArray.Parse(content);
             var coordinates = contentArray[0].ToString();
             var areaDescription = contentArray[1].ToString();
@@ -66,12 +90,11 @@ namespace ApiClients
                 {"geolocation", geolocation },
                 {
                 "area", string.Join(":", areaSplit[areaSplit.Length-3].Trim(),
-                                            areaSplit[areaSplit.Length-4].Trim(), 
-                                            areaSplit[areaSplit.Length-1].Trim())  
+                                         areaSplit[areaSplit.Length-4].Trim(),
+                                         areaSplit[areaSplit.Length-1].Trim())
                 }
             };
-            _lastRequestTime = DateTime.UtcNow;
-            return new ApiResponse(result);
+            return result;
         }
 
         private bool LocationNotExhist(string response)
@@ -80,26 +103,6 @@ namespace ApiClients
             if (response.Contains(notExhist))
                 return true;
             return false;
-        }
-
-        private void quantifyRequests()
-        {
-            var now = DateTime.UtcNow;
-            if(_currentDay.Day != now.Day)
-            {
-                _currentDay = DateTime.UtcNow;
-                _apiRequestsLeft = int.Parse((string) _configs.Parameter("RequestsPerDay"));
-            }
-            if(_lastRequestTime.Ticks - now.Ticks < 1000/ _requestsPerSecond)
-            {
-                int delay = (1000 /_requestsPerSecond) - (int)(_lastRequestTime.Ticks - now.Ticks);
-                System.Threading.Thread.Sleep(delay);
-            }
-            if(_apiRequestsLeft <= 0)
-            {
-                throw new Exception("LocationIq: No more api requests.");
-            }
-            _apiRequestsLeft -= 1;
         }
     }
 }

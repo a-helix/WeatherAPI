@@ -8,7 +8,7 @@ namespace Repository
     {
         void Create(T coordinates);
         T Read(string location);
-        void Update(string geocoordinates, string newArea);
+        void Update(string oldArea, string newArea);
         void Delete(string location);
     }
 }

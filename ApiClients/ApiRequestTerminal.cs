@@ -1,4 +1,5 @@
-﻿using DatabaseClient;
+﻿using Credentials;
+using DatabaseClient;
 using System;
 
 namespace ApiClients
@@ -7,11 +8,15 @@ namespace ApiClients
     {
         private LocationIqClient _locationIqClient;
         private OpenWeatherMapClient _openWeatherMapClient;
+        private MongoDatabaseClient _databaseClient;
 
-    public ApiRequestTerminal(string apiConfigPath)
+        public ApiRequestTerminal(string apiConfigPath)
         {
         _locationIqClient = new LocationIqClient(apiConfigPath);
         _openWeatherMapClient = new OpenWeatherMapClient(apiConfigPath);
+        var _configs = new JsonFileContent(apiConfigPath);
+        var databaseUrl = (string)_configs.Parameter("databaseUrl");
+        _databaseClient = new MongoDatabaseClient(databaseUrl, "areas", "areas");
         }
 
     public ApiResponse Execute(string parameter, string location)
@@ -21,6 +26,11 @@ namespace ApiClients
                 case "coordinates":
                     return _openWeatherMapClient.ApiRequest(location);
                 case "location":
+                    var dbResponse = _databaseClient.Read(location);
+                    if (dbResponse != null)
+                    {
+                        return dbResponse;
+                    }
                     // Use the name of a city like "New York:New York County:USA"
                     string geolocation = _locationIqClient.ApiRequest(location).Value("geolocation");
                     return _openWeatherMapClient.ApiRequest(geolocation);

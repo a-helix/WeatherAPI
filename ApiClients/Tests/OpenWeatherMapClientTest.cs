@@ -13,7 +13,7 @@ namespace ApiClients.Tests
         OpenWeatherMapClient client = new OpenWeatherMapClient(configPath);
 
         [Test]
-        public void ApiRequestPositiveTest()
+        public void ApiRequestTest()
         {
             var latitude = "40.75";
             var longitude = "-73.99";
@@ -23,16 +23,11 @@ namespace ApiClients.Tests
             Assert.AreEqual(latitude, feedback.Value("latitude"));
             Assert.AreEqual(longitude, feedback.Value("longitude"));
             Assert.AreEqual(timezone, feedback.Value("timezone"));
-        }
 
-        [Test]
-        public void ApiRequestNegativeTest()
-        {
-            var latitude = "Unknown";
-            var longitude = "Unknown";
-            var coordinates = String.Join(";", latitude, longitude);
-            
-            Assert.Throws<ArgumentException> (() => client.ApiRequest(coordinates), "Invalid geolocation.");
+            var lat = "Unknown";
+            var lon = "Unknown";
+            var coord = String.Join(";", lat, lon);
+            Assert.Throws<ArgumentException>(() => client.ApiRequest(coord), "Invalid geolocation.");
         }
     }
 }
