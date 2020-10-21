@@ -38,15 +38,18 @@ namespace ApiClients
 
         private void QuantifyRequests()
         {
+            //Here is a bug. Infinit cycle.
+            //created at, expired at, ID, input, output, ... (2h delay created again)
+            //TaskManager.
             var now = DateTime.UtcNow;
             if (_currentDay.Day != now.Day)
             {
                 _currentDay = DateTime.UtcNow;
                 _apiRequestsLeft = int.Parse((string)_configs.Parameter("RequestsPerDay"));
             }
-            if (_lastRequestTime.Ticks - now.Ticks < 1000 / _requestsPerSecond)
+            if (now.Ticks -_lastRequestTime.Ticks < 1000 / _requestsPerSecond)
             {
-                int delay = (1000 / _requestsPerSecond) - (int)(_lastRequestTime.Ticks - now.Ticks);
+                int delay = (1000 / _requestsPerSecond) - (int)(now.Ticks - _lastRequestTime.Ticks);
                 System.Threading.Thread.Sleep(delay);
             }
             if (_apiRequestsLeft <= 0)
