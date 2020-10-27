@@ -26,6 +26,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseClients", "Database
 		{36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0} = {36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskController", "TaskController\TaskController.csproj", "{E55D7CF7-4C3E-41D6-9EE0-3AEDC795CAAD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3D1C3A17-3868-4101-A870-FA90A2385D1B} = {3D1C3A17-3868-4101-A870-FA90A2385D1B}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +61,10 @@ Global
 		{8ABF1FE3-686D-4BC7-AF1F-B4E319BE0FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ABF1FE3-686D-4BC7-AF1F-B4E319BE0FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ABF1FE3-686D-4BC7-AF1F-B4E319BE0FA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E55D7CF7-4C3E-41D6-9EE0-3AEDC795CAAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E55D7CF7-4C3E-41D6-9EE0-3AEDC795CAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E55D7CF7-4C3E-41D6-9EE0-3AEDC795CAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E55D7CF7-4C3E-41D6-9EE0-3AEDC795CAAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

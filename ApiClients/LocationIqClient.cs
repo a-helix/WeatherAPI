@@ -38,9 +38,6 @@ namespace ApiClients
 
         private void QuantifyRequests()
         {
-            //Here is a bug. Infinit cycle.
-            //created at, expired at, ID, input, output, ... (2h delay created again)
-            //TaskManager.
             var now = DateTime.UtcNow;
             if (_currentDay.Day != now.Day)
             {
