@@ -20,6 +20,16 @@ namespace DatabaseClient
             return _cache[parameter];
         }
 
+        public void Update(string key, string value)
+        {
+            _cache[key] = value;
+        }
+
+        public void Add(string key, string value)
+        {
+            _cache.Add(key, value);
+        }
+
         public int Size()
         {
             return _cache.Count;

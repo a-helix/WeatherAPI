@@ -25,6 +25,23 @@ namespace DatabaseClient.Tests
         }
 
         [Test]
+        public void UpdateTest()
+        {
+            test.Add("control", "before");
+            Assert.AreEqual(test.Value("control"), "before");
+            test.Update("control", "after");
+            Assert.AreEqual(test.Value("control"), "after");
+        }
+
+        [Test]
+        public void AddTest()
+        {
+            string value = "exhist";
+            test.Add("control", value);
+            Assert.AreEqual(test.Value("control"), value);
+        }
+
+        [Test]
         public void ValuePositiveTest()
         {
             Assert.AreEqual("value", test.Value("key"));
