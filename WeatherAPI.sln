@@ -17,6 +17,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Credentials", "Credentials\Credentials.csproj", "{36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitChat", "..\RabbitChat\RabbitChat\RabbitChat.csproj", "{ECE16F02-DAA9-4845-B6D3-3929268C6946}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8ABF1FE3-686D-4BC7-AF1F-B4E319BE0FA3} = {8ABF1FE3-686D-4BC7-AF1F-B4E319BE0FA3}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "IRepository\Repository.csproj", "{3D1C3A17-3868-4101-A870-FA90A2385D1B}"
 EndProject
@@ -26,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseClients", "Database
 		{36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0} = {36DCAFFD-3F27-46F7-AEAC-F3A37AE4EFA0}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskController", "TaskController\TaskController.csproj", "{E55D7CF7-4C3E-41D6-9EE0-3AEDC795CAAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskController", "TaskController\TaskController.csproj", "{E55D7CF7-4C3E-41D6-9EE0-3AEDC795CAAD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3D1C3A17-3868-4101-A870-FA90A2385D1B} = {3D1C3A17-3868-4101-A870-FA90A2385D1B}
 	EndProjectSection

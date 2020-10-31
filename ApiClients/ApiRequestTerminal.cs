@@ -1,5 +1,6 @@
 ﻿using Credentials;
-using DatabaseClient;
+using DatabaseClients;
+using Repository;
 using System;
 
 namespace ApiClients
@@ -8,15 +9,13 @@ namespace ApiClients
     {
         private LocationIqClient _locationIqClient;
         private OpenWeatherMapClient _openWeatherMapClient;
-        private MongoDatabaseClient _databaseAreaClient;
+        private IRepository<ApiResponse> _databaseAreaClient;
 
-        public ApiRequestTerminal(string apiConfigPath)
+        public ApiRequestTerminal(string apiConfigPath, IRepository<ApiResponse> databaseAreaClient)
         {
             _locationIqClient = new LocationIqClient(apiConfigPath);
             _openWeatherMapClient = new OpenWeatherMapClient(apiConfigPath);
-            var _configs = new JsonFileContent(apiConfigPath);
-            var databaseUrl = (string)_configs.Parameter("databaseUrl");
-            _databaseAreaClient = new MongoDatabaseClient(databaseUrl, "Areas", "areas");
+            _databaseAreaClient = databaseAreaClient;
         }
 
     public ApiResponse Execute(string parameter, string location)

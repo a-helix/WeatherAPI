@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DatabaseClient;
+using DatabaseClients;
 using NUnit.Framework;
 
 namespace DatabaseClients.Tests
@@ -27,10 +27,10 @@ namespace DatabaseClients.Tests
                 {"area", "Shire" }
             };
             ApiResponse test = new ApiResponse(dict);
-            Assert.Throws<KeyNotFoundException>(() => _db.Read("Shire").Equals(test));
+            Assert.IsNull(_db.Read("Shire"));
             _db.Create(test);
             Assert.IsTrue(_db.Read("Shire").Equals(test));
-            Assert.Throws<KeyNotFoundException>(() => _db.Read("Not exhist."));
+            Assert.IsNull(_db.Read("Not exhist."));
         }
 
         [Test]

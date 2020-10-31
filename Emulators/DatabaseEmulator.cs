@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Credentials;
+using DatabaseClient;
 using Repository;
 
-namespace DatabaseClients.Tests
+namespace Emulators
 {
     public class DatabaseEmulator : IRepository<ApiResponse>
     {
@@ -28,17 +28,13 @@ namespace DatabaseClients.Tests
 
         public ApiResponse Read(string location)
         {
-            if(_database.ContainsKey(location))
-                return _database[location];
-            return null;
+            return _database[location];
         }
 
         public void Update(string oldArea, string newArea)
         {
-            try
-            {
-                var oldUnit = Read(oldArea);
-                var newUnit = new Dictionary<string, string>()
+            var oldUnit = Read(oldArea);
+            var newUnit = new Dictionary<string, string>()
             {
                 {"latitude",  oldUnit.Value("latitude") },
                 {"longitude", oldUnit.Value("longitude") },
@@ -47,14 +43,8 @@ namespace DatabaseClients.Tests
                 "area", newArea
                 }
             };
-                _database.Remove(oldArea);
-                _database.Add(newArea, new ApiResponse(newUnit));
-            }
-            catch(Exception)
-            {
-                throw new KeyNotFoundException();
-            }
-
+            _database.Remove(oldArea);
+            _database.Add(newArea, new ApiResponse(newUnit));
         }
 
         public bool Contains(string area)

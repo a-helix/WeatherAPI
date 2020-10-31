@@ -1,4 +1,4 @@
-﻿using DatabaseClient;
+﻿using DatabaseClients;
 using NUnit.Framework;
 using System;
 using System.IO;

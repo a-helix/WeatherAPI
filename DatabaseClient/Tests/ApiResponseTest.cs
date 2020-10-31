@@ -1,15 +1,23 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace DatabaseClient.Tests
+namespace DatabaseClients.Tests
 {
     public class ApiResponseTest
     {
-        static Dictionary<string, string> dict = new Dictionary<string, string>()
+        static Dictionary<string, string> dict;
+        ApiResponse test;
+
+        [SetUp]
+        public void SetUp()
         {
-            {"key", "value" }
-        };
-        ApiResponse test = new ApiResponse(dict);
+
+            dict = new Dictionary<string, string>()
+            {
+                {"key", "value" }
+            };
+            test = new ApiResponse(dict);
+        }
 
         [Test]
         public void SizeTest()
@@ -34,6 +42,12 @@ namespace DatabaseClient.Tests
         }
 
         [Test]
+        public void ToStringTest()
+        {
+            Assert.AreEqual(test.ToString(), "{\r\n  \"key\": \"value\"\r\n}");
+        }
+
+        [Test]
         public void AddTest()
         {
             string value = "exhist";
@@ -52,12 +66,6 @@ namespace DatabaseClient.Tests
         {
             Assert.Throws<KeyNotFoundException>(() => test.Value("not exhist"),
                 "The given key 'not exhist' was not present in the dictionary.");
-        }
-
-        [Test]
-        public void ToStringTest()
-        {
-            Assert.AreEqual(test.ToString(), "{\r\n  \"key\": \"value\"\r\n}");
         }
 
         [Test]

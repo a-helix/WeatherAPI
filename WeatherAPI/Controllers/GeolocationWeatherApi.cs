@@ -1,13 +1,10 @@
 ﻿using System;
 using ApiClients;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 using System.IO;
-using DatabaseClient;
+using DatabaseClients;
+using Credentials;
 
 namespace WeatherAPI
 {
@@ -17,7 +14,10 @@ namespace WeatherAPI
         static string configPath = Path.Combine(
                                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                                    "Configs", "ApiConfigs.json");
-        ApiRequestTerminal terminal = new ApiRequestTerminal(configPath);
+        static JsonFileContent configContent = new JsonFileContent(configPath);
+        static string  databaseUrl = (string) configContent.Parameter("databaseUrl");
+        static MongoDatabaseClient client = new MongoDatabaseClient(databaseUrl, "Areas", "areas");
+        ApiRequestTerminal terminal = new ApiRequestTerminal(configPath, client);
 
         [HttpGet]
         [ProducesResponseType(200)]

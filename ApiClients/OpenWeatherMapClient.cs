@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Credentials;
-using DatabaseClient;
+using DatabaseClients;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
