@@ -39,14 +39,12 @@ namespace DatabaseClients.Tests
             {
                 var oldUnit = Read(oldArea);
                 var newUnit = new Dictionary<string, string>()
-            {
-                {"latitude",  oldUnit.Value("latitude") },
-                {"longitude", oldUnit.Value("longitude") },
-                {"geolocation", oldUnit.Value("geolocation") },
                 {
-                "area", newArea
-                }
-            };
+                    { "latitude",  oldUnit.Value("latitude") },
+                    { "longitude", oldUnit.Value("longitude") },
+                    { "geolocation", oldUnit.Value("geolocation") },
+                    { "area", newArea }
+                };
                 _database.Remove(oldArea);
                 _database.Add(newArea, new ApiResponse(newUnit));
             }

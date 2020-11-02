@@ -17,7 +17,7 @@ namespace ApiClients.Tests
         {
             var latitude = "40.75";
             var longitude = "-73.99";
-            var timezone = "-14400";
+            var timezone = "-18000";
             var coordinates = String.Join(";", latitude, longitude);
             ApiResponse feedback = client.ApiRequest(coordinates);
             Assert.AreEqual(latitude, feedback.Value("latitude"));

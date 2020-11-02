@@ -33,6 +33,7 @@ namespace TaskController
             {
                 throw new NotImplementedException();
             }
+
             protected void UpdateCacheAndDatabase(string input, ApiResponse newResponse)
             {
                 TaskBuffer.Delete(input);
@@ -45,7 +46,7 @@ namespace TaskController
         public class TaskCreate : Task
         {
             private Dictionary<string, string> _buffer;
-
+            TaskRequest request;
             public new void Execute(string input)
             {
                 try
@@ -58,13 +59,15 @@ namespace TaskController
                     var created = new ApiResponse(_buffer);
                     _dbClient.Create(created);
                     TaskBuffer.Add(input, created);
-                }
+                    request = new TaskRequest();
+                    request.Execute(input);
+            }
                 catch (Exception e)
                 {
                     TaskCancel cancel = new TaskCancel(e);
                     cancel.Execute(input);
                 }
-            }
+    }
         }
 
         public class TaskRequest : Task
@@ -75,7 +78,6 @@ namespace TaskController
             {
                 var cached = TaskBuffer.Get(input);
                 push = new TaskPush();
-
                 try
                 {
                     Regex rx = new Regex(@"((((\-?\d{1,3}\.\d+)|\-?\d{1,3}))\;((\-?\d{1,2}\.\d+)|(\-?\d{1,2})))");
@@ -83,20 +85,21 @@ namespace TaskController
 
                     if (rx.IsMatch(input))
                     {
-                        apiResponse = _terminal.Execute(input, "coordinates");
+                        apiResponse = _terminal.Execute("coordinates", input);
                         apiResponse.Add("area", input);
                     }
                     else
                     {
-                        apiResponse = _terminal.Execute(input, "location");
+                        apiResponse = _terminal.Execute("location", input);
                         apiResponse.Update("area", input);
                     }
 
-                    apiResponse.Add("status", "Requested");
-                    apiResponse.Add("created", cached.Value("created"));
-                    apiResponse.Add("finished", DateTime.UtcNow.Ticks.ToString());
-                    UpdateCacheAndDatabase(input, cached);
-                    push.Execute(input);
+                    apiResponse.Update("status", "Requested");
+                    apiResponse.Update("created", cached.Value("created"));
+
+                apiResponse.Add("finished", DateTime.UtcNow.Ticks.ToString());
+                UpdateCacheAndDatabase(input, cached);
+                push.Execute(input);
                 }
                 catch (Exception e)
                 {
@@ -119,7 +122,6 @@ namespace TaskController
                     UpdateCacheAndDatabase(input, cached);
                     _complete = new TaskComplete();
                     _complete.Execute(input);
-
                 }
                 catch (Exception e)
                 {
