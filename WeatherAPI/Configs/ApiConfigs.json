@@ -5,5 +5,9 @@
   "LocationIqKey": "429335d1f4e352",
   "RequestsPerDay": "10000",
   "RequestsPerSecond": "2",
-  "databaseUrl": "mongodb://192.168.80.128:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false"
+  "databaseUrl": "mongodb://192.168.80.128:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false",
+  "RabbitMQ": "http://localhost:15672/",
+  "RabbitExchange": "WeatherApi",
+  "routingKeyNew": "New",
+  "routingKeyFinished": "Finished"
 }

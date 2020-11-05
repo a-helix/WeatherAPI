@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApiClients\ApiClients.csproj" />
+    <ProjectReference Include="..\TaskController\TaskController.csproj" />
   </ItemGroup>
 
   <ItemGroup>
