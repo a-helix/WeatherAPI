@@ -118,7 +118,6 @@ namespace TaskController
                 {
                     var cached = TaskBuffer.Get(input);
                     cached.Update("status", "Published");
-                    //Change
                     _publisher.SendQueue(input, cached.ToString());
                     UpdateCacheAndDatabase(input, cached);
                     _complete = new TaskComplete();
