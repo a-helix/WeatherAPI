@@ -15,7 +15,7 @@ namespace DatabaseClients
         public MongoDatabaseClient(string configPath, string database, string collection)
         {   
             var databaseConfig = new JsonFileContent(configPath);
-            var url = (string) databaseConfig.Parameter("databaseUrl");
+            var url = (string) databaseConfig.Value("databaseUrl");
             _client = new MongoClient(url);
             _database = _client.GetDatabase(database);
             _collection = _database.GetCollection<BsonDocument>(collection);

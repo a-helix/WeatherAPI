@@ -14,12 +14,11 @@ namespace WeatherAPI
     
     public class PlaceWeatherApi : ControllerBase
     {
-        //api configurations
         static string apiConfigPath = Path.Combine(
                                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                                    "Configs", "ApiConfigs.json");
         static JsonFileContent configContent = new JsonFileContent(apiConfigPath);
-        static string databaseUrl = (string)configContent.Parameter("databaseUrl");
+        static string databaseUrl = (string)configContent.Value("databaseUrl");
         static MongoDatabaseClient client = new MongoDatabaseClient(databaseUrl, "Areas", "areas");
         ApiRequestTerminal terminal = new ApiRequestTerminal(apiConfigPath, client);
         private ILogger<PlaceWeatherApi> _logger;

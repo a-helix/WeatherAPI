@@ -35,9 +35,9 @@ namespace TaskController.Tests
             taskManager.Execute(positiveTest);
             var positiveEtalon = new ApiResponse(positive);
             var positiveFeedback = new JsonStringContent(consumer.Receive(positiveTest));
-            Assert.AreEqual(positiveFeedback.Parameter("area"), positiveEtalon.Value("area"));
-            Assert.AreEqual(positiveFeedback.Parameter("geolocation"), positiveEtalon.Value("geolocation"));
-            Assert.AreEqual(positiveFeedback.Parameter("status"), positiveEtalon.Value("status"));
+            Assert.AreEqual(positiveFeedback.Value("area"), positiveEtalon.Value("area"));
+            Assert.AreEqual(positiveFeedback.Value("geolocation"), positiveEtalon.Value("geolocation"));
+            Assert.AreEqual(positiveFeedback.Value("status"), positiveEtalon.Value("status"));
 
             var negative = new Dictionary<string, string>(){
                  { "area", "1234567890qwerasdf" },
@@ -50,9 +50,9 @@ namespace TaskController.Tests
             taskManager.Execute(negativeTest);
             var negativeEtalon = new ApiResponse(negative);
             var negativeFeedback = new JsonStringContent(consumer.Receive(negativeTest));
-            Assert.AreEqual(negativeFeedback.Parameter("area"), negativeEtalon.Value("area"));
-            Assert.AreEqual(negativeFeedback.Parameter("geolocation"), negativeEtalon.Value("geolocation"));
-            Assert.AreEqual(negativeFeedback.Parameter("status"), negativeEtalon.Value("status"));
+            Assert.AreEqual(negativeFeedback.Value("area"), negativeEtalon.Value("area"));
+            Assert.AreEqual(negativeFeedback.Value("geolocation"), negativeEtalon.Value("geolocation"));
+            Assert.AreEqual(negativeFeedback.Value("status"), negativeEtalon.Value("status"));
         }
 
     }

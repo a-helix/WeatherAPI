@@ -17,7 +17,7 @@ namespace DatabaseClients.Tests
         public void Create(ApiResponse coordinates)
         {
             JsonStringContent geolocation = new JsonStringContent(coordinates.ToString());
-            var key = geolocation.Parameter("area").ToString();
+            var key = geolocation.Value("area").ToString();
             _database.Add(key, coordinates);
         }
 

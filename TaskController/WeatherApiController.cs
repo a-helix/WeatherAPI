@@ -17,12 +17,12 @@ namespace TaskController
         public WeatherApiController(string configPath, IRepository<ApiResponse> databaseClient)
         {
             JsonFileContent config = new JsonFileContent(configPath);
-            var rabbitAdress = (string)config.Parameter("RabbitMQ");
+            var rabbitAdress = (string)config.Value("RabbitMQ");
             publisher = new Publisher(rabbitAdress, "TaskController", "TaskController");
             consumer = new Consumer(rabbitAdress, "TaskController", "TaskController");
             terminal = new ApiRequestTerminal(configPath, databaseClient);
             manager = new TaskManager(terminal, publisher, databaseClient);
-            rabbitExchangeValue = (string)config.Parameter("RabbitExchangeParameter"); 
+            rabbitExchangeValue = (string)config.Value("QueueKey"); 
         }
 
         public void Run()

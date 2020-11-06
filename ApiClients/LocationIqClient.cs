@@ -21,10 +21,10 @@ namespace ApiClients
         public LocationIqClient(string apiConfigPath)
         {
             _configs = new JsonFileContent(apiConfigPath);
-            _client = new RestClient((string) _configs.Parameter("LocationIqUrl"));
-            _key = (string) _configs.Parameter("LocationIqKey");
-            _apiRequestsLeft = int.Parse((string) _configs.Parameter("RequestsPerDay"));
-            _requestsPerSecond = int.Parse((string) _configs.Parameter("RequestsPerSecond"));
+            _client = new RestClient((string) _configs.Value("LocationIqUrl"));
+            _key = (string) _configs.Value("LocationIqKey");
+            _apiRequestsLeft = int.Parse((string) _configs.Value("RequestsPerDay"));
+            _requestsPerSecond = int.Parse((string) _configs.Value("RequestsPerSecond"));
             _currentDay = DateTime.UtcNow;   
         }
 
@@ -42,7 +42,7 @@ namespace ApiClients
             if (_currentDay.Day != now.Day)
             {
                 _currentDay = DateTime.UtcNow;
-                _apiRequestsLeft = int.Parse((string)_configs.Parameter("RequestsPerDay"));
+                _apiRequestsLeft = int.Parse((string)_configs.Value("RequestsPerDay"));
             }
             if (now.Ticks -_lastRequestTime.Ticks < 1000 / _requestsPerSecond)
             {

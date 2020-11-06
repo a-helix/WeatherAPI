@@ -15,8 +15,8 @@ namespace ApiClients
         public OpenWeatherMapClient(string configPath)
         {
             JsonFileContent config = new JsonFileContent(configPath);
-            _client = new RestClient((string)config.Parameter("OpenWeatherMapUrl"));
-            _key = (string) config.Parameter("OpenWeatherMapKey"); 
+            _client = new RestClient((string)config.Value("OpenWeatherMapUrl"));
+            _key = (string) config.Value("OpenWeatherMapKey"); 
         }
 
         public ApiResponse ApiRequest(string geolocation)

@@ -15,7 +15,7 @@ namespace WeatherAPI
                                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                                    "Configs", "ApiConfigs.json");
         static JsonFileContent configContent = new JsonFileContent(configPath);
-        static string  databaseUrl = (string) configContent.Parameter("databaseUrl");
+        static string  databaseUrl = (string) configContent.Value("databaseUrl");
         static MongoDatabaseClient client = new MongoDatabaseClient(databaseUrl, "Areas", "areas");
         ApiRequestTerminal terminal = new ApiRequestTerminal(configPath, client);
 
