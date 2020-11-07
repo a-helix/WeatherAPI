@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using NLog.Web;
 using System.Threading;
 using TaskController;
+using DatabaseClients;
 
 namespace WeatherAPI
 {
@@ -24,10 +25,11 @@ namespace WeatherAPI
             string loggerConfigPath = Path.Join("Configs", "nlog.config.xml");
             string configPath = Path.Join("Configs", "ApiConfigs.json");
             var logger = NLogBuilder.ConfigureNLog(loggerConfigPath).GetCurrentClassLogger();
-            //MongoDatabaseClient databaseClient = new MongoDatabaseClient(configPath, "Service", "service");
-            //WeatherApiController controller = new WeatherApiController(configPath, databaseClient);
+            MongoDatabaseClient databaseClient = new MongoDatabaseClient(configPath, "Service", "service");
+            WeatherApiController controller = new WeatherApiController(configPath, databaseClient);
             try
             {
+                Thread thread = new Thread(controller.Run);
                 logger.Debug("init main");
                 CreateHostBuilder(_args).Build().Run();
             }
