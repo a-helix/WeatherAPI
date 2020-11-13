@@ -1,6 +1,6 @@
-[submodule "Credentials"]
-	path = Credentials
-	url = git@github.com:a-helix/Credentials.git
 [submodule "RabbitChat"]
 	path = RabbitChat
 	url = git@github.com:a-helix/RabbitChat.git
+[submodule "DatabaseClient"]
+	path = DatabaseClient
+	url = git@github.com:a-helix/DatabaseClient.git
