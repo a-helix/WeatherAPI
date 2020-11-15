@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApiClients\ApiClients.csproj" />
+    <ProjectReference Include="..\DatabaseClient\Credentials\Credentials\Credentials.csproj" />
     <ProjectReference Include="..\DatabaseClient\DatabaseClient\DatabaseClient.csproj" />
     <ProjectReference Include="..\DatabaseClient\IRepository\Repository.csproj" />
     <ProjectReference Include="..\TaskController\TaskController.csproj" />
