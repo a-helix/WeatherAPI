@@ -75,7 +75,7 @@ namespace ApiClients
         {
             var contentArray = JArray.Parse(content);
             var coordinates = contentArray[0].ToString();
-            var areaDescription = contentArray[1].ToString();
+            var areaDescription = contentArray[0].ToString();
             var coordinatesData = JObject.Parse(coordinates);
             var areaDescriptionData = JObject.Parse(areaDescription);
             var lat = (string) coordinatesData["lat"];

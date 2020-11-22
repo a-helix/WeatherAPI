@@ -21,8 +21,8 @@ namespace ApiClients.Tests
             var request = "Empire State Building";
             var response = client.ApiRequest(request);
             var compare = new JsonStringContent(response.ToString());
-            Assert.AreEqual(compare.Value("geolocation"), test);
-            Assert.AreEqual(compare.Value("area"), "New York:New York County:USA");
+            Assert.AreEqual(Convert.ToString(compare.Value("geolocation")), test);
+            Assert.AreEqual(Convert.ToString(compare.Value("area")), "New York:New York County:USA");
 
             var negativeRequest = "0123456789qwerasdf";
             ApiResponse negativeResponse;
