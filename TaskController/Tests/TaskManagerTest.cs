@@ -2,9 +2,9 @@
 using RabbitChat;
 using NUnit.Framework;
 using System.IO;
-using DatabaseClients.Tests;
+using DatabaseClient.Tests;
 using System.Collections.Generic;
-using DatabaseClients;
+using DatabaseClient;
 using Credentials;
 
 namespace TaskController.Tests
@@ -16,7 +16,7 @@ namespace TaskController.Tests
                                    Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName,
                                    "WeatherAPI", "Configs", "ApiConfigs.json");
         static PublisherEmulator publisher = new PublisherEmulator(rabbitServer, "test", "test");
-        static DatabaseEmulator databaseClient = new DatabaseEmulator();
+        static ApiResponseDatabaseEmulator databaseClient = new ApiResponseDatabaseEmulator();
         static ApiRequestTerminal terminal = new ApiRequestTerminal(configPath, databaseClient);
         ConsumerEmulator consumer = new ConsumerEmulator(rabbitServer, "test", "test");
         TaskManager taskManager = new TaskManager(terminal, publisher, databaseClient);

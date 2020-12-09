@@ -1,5 +1,5 @@
 ﻿using ApiClients;
-using DatabaseClients;
+using DatabaseClient;
 using RabbitChat;
 using Repository;
 using System;

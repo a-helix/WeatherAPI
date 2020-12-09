@@ -20,9 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApiClients\ApiClients.csproj" />
-    <ProjectReference Include="..\DatabaseClient\Credentials\Credentials\Credentials.csproj" />
-    <ProjectReference Include="..\DatabaseClient\DatabaseClient\DatabaseClient.csproj" />
-    <ProjectReference Include="..\DatabaseClient\IRepository\Repository.csproj" />
     <ProjectReference Include="..\TaskController\TaskController.csproj" />
   </ItemGroup>
 
@@ -31,9 +28,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Configs\nlog.config.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Dockerfile">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

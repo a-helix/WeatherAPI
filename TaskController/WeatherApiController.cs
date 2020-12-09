@@ -1,6 +1,6 @@
 ﻿using ApiClients;
 using Credentials;
-using DatabaseClients;
+using DatabaseClient;
 using RabbitChat;
 using Repository;
 

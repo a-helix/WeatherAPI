@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Collections.Generic;
 using System;
-using DatabaseClients;
+using DatabaseClient;
 
 namespace ApiClients
 {

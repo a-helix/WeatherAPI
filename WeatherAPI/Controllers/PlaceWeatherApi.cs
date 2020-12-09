@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Reflection;
-using DatabaseClients;
+using DatabaseClient;
 using Credentials;
 
 namespace WeatherAPI

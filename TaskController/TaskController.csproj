@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -13,8 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApiClients\ApiClients.csproj" />
-    <ProjectReference Include="..\DatabaseClient\DatabaseClients.csproj" />
-    <ProjectReference Include="..\DatabaseClient\IRepository\Repository.csproj" />
+    <ProjectReference Include="..\DatabaseClient\DatabaseClient\DatabaseClient.csproj" />
+    <ProjectReference Include="..\RabbitChat\RabbitChat\RabbitChat.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 using System;
 using Credentials;
 using System.IO;
-using DatabaseClients;
+using DatabaseClient;
 
 namespace ApiClients.Tests
 {

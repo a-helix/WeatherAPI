@@ -16,11 +16,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\RabbitChat\RabbitChat\RabbitChat.csproj" />
-		<ProjectReference Include="..\DatabaseClient\Credentials\Credentials\Credentials.csproj" />
-		<ProjectReference Include="..\DatabaseClient\DatabaseClients.csproj" />
-		<ProjectReference Include="..\DatabaseClient\DatabaseClient\DatabaseClient.csproj" />
-		<ProjectReference Include="..\DatabaseClient\IRepository\Repository.csproj" />
+	  <ProjectReference Include="..\DatabaseClient\Credentials\Credentials\Credentials.csproj" />
+	  <ProjectReference Include="..\DatabaseClient\DatabaseClient\DatabaseClient.csproj" />
 	</ItemGroup>
 
 </Project>

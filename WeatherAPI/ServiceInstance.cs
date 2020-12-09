@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using NLog.Web;
 using System.Threading;
 using TaskController;
-using DatabaseClients;
+using DatabaseClient;
 
 namespace WeatherAPI
 {
