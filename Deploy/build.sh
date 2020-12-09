@@ -5,7 +5,6 @@ if [[ -d src ]]
 		sudo rm -r src
 		echo "Done."
 fi
-
 echo "Building WeatherAPI..."
 cd ..
 dotnet build WeatherAPI.sln -c Release -o "src/"
